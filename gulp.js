@@ -6,7 +6,7 @@ import browserSyncLib from 'browser-sync'
 import browserSync from 'browser-sync';
 
 require("dotenv").config();
-const port = process.env.PORT || 8888
+const PORT = process.env.PORT || 8888
 
 browserSync = browserSyncLib.create()
 
@@ -23,7 +23,7 @@ gulp.task("sass", function() {
 
 gulp.task("watch", function() {
 	browserSync.init({
-		proxy: `localhost:${port}`
+		proxy: `localhost:${PORT}`
 	});
 
 	gulp.watch("./dev/sass/**/*.scss", gulp.series("sass"));
