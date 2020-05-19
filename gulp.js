@@ -29,4 +29,4 @@ gulp.task("watch", function() {
 	gulp.watch("./dev/sass/**/*.scss", gulp.series("sass"));
 	gulp.watch("views/**/*.hbs", browserSync.reload);
 	gulp.watch("public/js/**/*.js", browserSync.reload);
-});
+}); 

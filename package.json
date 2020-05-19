@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node -r esm ./server.js",
-    "dev": "nodemon -r esm ./server.js"
+    "predev": "npm run build",
+    "dev": "nodemon -r esm ./server.js",
+    "prebuild": "rimraf ./public/dist",
+    "build": "gulp sass",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
