@@ -1,7 +1,7 @@
-import * as base from '../controllers/default.controller'
+const express = require('express')
+const base = require('../controllers/default.controller')
+const ROUTER = express.Router()
 
-export default function(APP, params) {
-  APP.get('/', (req,res) => {
-    base.home(req,res,params)
-  })
-}
+ROUTER.get('/', base.home)
+
+module.exports = ROUTER

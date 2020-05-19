@@ -4,29 +4,33 @@ import router from './routes/index.routes'
 import bodyParser from 'body-parser'
 import exphbs from 'express-handlebars'
 import path from 'path'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const PORT = process.env.PORT || 8888,
   APP = express(),
-  COMPONENTPATH = `${__dirname}/src/components`,
   URLENCODEDPARSER = bodyParser.urlencoded({ extended: true })
 
 APP
   .use(compression())
   .use(express.static('static'))
   .use(bodyParser.json())
-  .use(URLENCODEDPARSER)
+  .use(URLENCODEDPARSER) 
   .set('view engine', 'hbs')
   .engine('hbs', exphbs({
     extname: '.hbs',
-    defaultLayout: null,
+    layoutsDir: 'views/components/base/layouts',
     partialsDir: [
       {
-        dir: `${__dirname}/src/components/base/views/partials/`, 
+        dir: path.join(__dirname, '/views/components/base/partials'),
         namespace: 'base'
-      }
+      },
+      {
+        dir: path.join(__dirname, '/views/components/home/partials'),
+        namespace: 'home'
+      }    
     ]
   }))
+  .use('/', router)
   .listen(PORT, () => console.log(`Using port: ${PORT}`))
-
-// Pass the app to the router and give it a paramaters object
-router(APP, {COMPONENTPATH})
