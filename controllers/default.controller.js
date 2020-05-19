@@ -1,5 +1,5 @@
-export function home(req,res,params) {
-  res.render(`${params.COMPONENTPATH}/base/views/home`, {
-  })
-}
 
+
+exports.home = function(req, res) {
+  res.render('components/home/index', {})
+}
