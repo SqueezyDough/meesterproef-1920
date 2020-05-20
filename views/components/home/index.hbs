@@ -1,7 +1,23 @@
 <main>
-  <h1>Hello rld</h1>
+  {{> 'base/_svg-background'}}
+  <article class="introduction">
+    <div>
+      <header class="introduction__header">
+        <h1>Medicijn scanner</h1>
+      </header>
+      <section class="introduction__cta">
+        <p>Direct de juiste informatie over uw medicijn(en)</p>
+        <ul>
+          <li>
+            <a href="#">Medicijn scannen</a>
+          </li>
+          <li>
+            <a href="#">Medicijn zoeken</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </article>
 </main>
-
-{{> 'home/_scanner' }}
 
 {{> 'base/_footer' }}

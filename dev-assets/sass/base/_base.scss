@@ -1,4 +1,73 @@
+@font-face {
+  font-family: AvenirNext;
+  src: url('/fonts/AvenirNextLTPro-Regular.otf') format("opentype");
+}
+
+@font-face {
+  font-family: AvenirNext;
+  font-weight: bold;
+  src: url('/fonts/AvenirNextLTPro-Bold.otf') format("opentype");
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-    border:3px solid green;
-    color: red;
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+  margin: 0;
+  font-family: AvenirNext, sans-serif;
+}
+
+main {
+  flex: 1 1 auto;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 1110px;
+  align-self: center;
+}
+
+footer {
+  flex: 0 1 auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.svg-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -10;
+  width: 100vw;
+  height: 100vh;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  svg {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  &__rectangle {
+    width: 100vw;
+    height: 100vh;
+  }
 }

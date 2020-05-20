@@ -1,0 +1,29 @@
+.footer {
+  padding: 1.25rem 0;
+  background: var(--secondary-color);
+
+  &__navigation {
+    ul {
+      li {
+        display: inline-block;
+
+        &:last-of-type {
+          a {
+            border-right: 0;
+          }
+        }
+
+        a {
+          display: block;
+          padding: 0 0.75rem;
+          color: var(--black);
+          border-right: 1px solid var(--black);
+
+          &:hover {
+            color: var(--primary-color);
+          }
+        }
+      }
+    }
+  }
+}
