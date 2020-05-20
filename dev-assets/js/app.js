@@ -1,1 +1,3 @@
-const red = 'red'
+import * as scanner from './scanner'
+
+scanner.init()
