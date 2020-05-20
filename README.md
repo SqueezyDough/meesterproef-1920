@@ -20,7 +20,6 @@ In this course we will bundle all our newly acquired superpowers to create a web
 ## Prerequisites
 ### NPM packages
 - Nodejs
-- Rimraf
   
 ## Other documentation
 For more documentation about our medicine scanner visit our [Wicky](https://github.com/SqueezyDough/meesterproef-1920/wiki)!
