@@ -1,0 +1,1 @@
+"use strict";var video=document.getElementById("scannerElement");navigator.mediaDevices.getUserMedia?navigator.mediaDevices.getUserMedia({audio:!1,video:{width:{ideal:1280},height:{ideal:720}}}).then(function(e){video.srcObject=e}).catch(function(e){console.log("Error: ",e)}):console.log("Your browser down not support video streams");
