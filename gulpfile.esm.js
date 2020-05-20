@@ -14,8 +14,9 @@ gulp.task("watch", function() {
 		proxy: `localhost:${PORT}`
 	});
 
-	gulp.watch("./dev-assets/sass/**/*.scss", gulp.task("compile-sass"));
-	gulp.watch("./dev-assets/js/**/*.js", gulp.task("compile-js"));
+	gulp.watch("./dev-assets/sass/**/*.scss", gulp.task("compile-sass"))
+	gulp.watch("./dev-assets/js/**/*.js", gulp.task("compile-js"))
+	gulp.watch("views/**/*.hbs").on('change', browserSync.reload)
 }); 
 
 gulp.task("compile-sass", function() {
