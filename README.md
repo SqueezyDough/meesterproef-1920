@@ -25,6 +25,9 @@ In this course we will bundle all our newly acquired superpowers to create a web
 ### Install packages
 `npm run install`
 
+### Install tesseract
+`brew install tesseract`
+
 ### Usage
 `npm run dev`
 
