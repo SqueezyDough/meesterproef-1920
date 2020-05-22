@@ -15,6 +15,20 @@ In this course we will bundle all our newly acquired superpowers to create a web
 
 ------
 
+<a name="install">
+  
+## Install Notes
+### Clone repository
+`git clone https://github.com/SqueezyDough/meesterproef-1920.git`
+
+## Install packages
+`npm run install`
+
+## Usage
+`npm run dev`
+
+------
+
 <a name="docs">
   
 ## Other documentation
