@@ -4,8 +4,8 @@ if (navigator.mediaDevices.getUserMedia) {
   navigator.mediaDevices.getUserMedia({ 
     audio: false, 
     video: {
-      width: { ideal: 100},
-      height: { ideal: 50}
+      width: { ideal: 480},
+      height: { ideal: 360}
     }
   })
     .then((stream) => {

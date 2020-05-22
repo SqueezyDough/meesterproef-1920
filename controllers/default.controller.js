@@ -1,4 +1,4 @@
-const fs = require('fs')
+import fs from 'fs'
 
 exports.home = function(req, res) {
   res.render('components/home/index', {})
