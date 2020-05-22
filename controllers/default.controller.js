@@ -15,7 +15,9 @@ exports.snapshot = async function(req, res) {
   const recognised_text = await tesseract.recogniseText(`${file_directory}/${file_id}.jpg`)
   removeSnapshot(file_id, file_directory)
 
-  console.log(recognised_text)
+  if (/\S/.test(recognised_text)) {
+    console.log(recognised_text)
+  }
 
   res.send('Snapshot scanned')
 }
