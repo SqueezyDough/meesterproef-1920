@@ -3,6 +3,7 @@ In this course we will bundle all our newly acquired superpowers to create a web
 
 ## Table of contents
 - [Collaborators](#collaborators)
+- [Install notes](#install)
 - [Other documentation](#docs)
 
 ------
@@ -12,6 +13,23 @@ In this course we will bundle all our newly acquired superpowers to create a web
 ## Collaborators
 - [Damian Veltkamp](https://github.com/damian1997/meesterproef-1920)
 - [Leroy van Biljouw](https://github.com/SqueezyDough/meesterproef-1920)
+
+------
+
+<a name="install">
+  
+## Install Notes
+### Clone repository
+`git clone https://github.com/SqueezyDough/meesterproef-1920.git`
+
+### Install packages
+`npm run install`
+
+### Install tesseract
+`brew install tesseract`
+
+### Usage
+`npm run dev`
 
 ------
 
