@@ -1,22 +1,30 @@
 const video = document.getElementById('scannerElement')
+const window_path = window.location.pathname
 
 if (navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({ 
-    audio: false, 
-    video: {
-      width: { ideal: 480},
-      height: { ideal: 360}
-    }
-  })
-    .then((stream) => {
-      video.srcObject = stream
-      setInterval(() => {
-        createSnapshot(video)
-      }, 2000)
-    })
-    .catch((err) => {
-      console.log('Error: ', err)
-    })
+  const window_path_split = window_path.split('/')
+
+  switch(window_path_split[1]) {
+    case 'scan-medicine':
+      navigator.mediaDevices.getUserMedia({ 
+        audio: false, 
+        video: {
+          width: { ideal: 480},
+          height: { ideal: 360},
+          facingMode: 'environment'
+        }
+      })
+        .then((stream) => {
+          video.srcObject = stream
+          setInterval(() => {
+            createSnapshot(video)
+          }, 2000)
+        })
+        .catch((err) => {
+          console.log('Error: ', err)
+        })
+      break;
+  }
 } else {
   console.log('Your browser down not support video streams')
 }
