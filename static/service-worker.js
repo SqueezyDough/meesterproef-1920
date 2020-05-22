@@ -1,7 +1,8 @@
 const CORE_CACHE = 1
 const CORE_CACHE_NAME = `core-cache-v${CORE_CACHE}`
 const CORE_ASSETS = [
-    '/'
+    '/',
+    '/dist/site.css'
 ]
 
 self.addEventListener('install', e => {
