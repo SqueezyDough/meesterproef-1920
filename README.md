@@ -3,6 +3,7 @@ In this course we will bundle all our newly acquired superpowers to create a web
 
 ## Table of contents
 - [Collaborators](#collaborators)
+- [Install notes](#install)
 - [Other documentation](#docs)
 
 ------
