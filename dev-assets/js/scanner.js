@@ -1,4 +1,4 @@
-const video = document.getElementById('scannerElement')
+const video = document.getElementById('scanner_element')
 const window_path = window.location.pathname
 
 if (navigator.mediaDevices.getUserMedia) {
@@ -6,8 +6,8 @@ if (navigator.mediaDevices.getUserMedia) {
 
   switch(window_path_split[1]) {
     case 'scan-medicine':
-      navigator.mediaDevices.getUserMedia({ 
-        audio: false, 
+      navigator.mediaDevices.getUserMedia({
+        audio: false,
         video: {
           width: { ideal: 480},
           height: { ideal: 360},
@@ -46,4 +46,14 @@ function createSnapshot(video) {
     method: 'POST',
     body: form_data
   })
+  .then(response => response.json())
+  .then(data => {
+    // Display ts output
+    appendTesseractOutput(data)
+  })
+}
+
+function appendTesseractOutput(output) {
+  const tesseract_output_container = document.getElementById('tesseract_output_container')
+  tesseract_output_container.innerHTML = `Scanned text: ${output}`
 }
