@@ -1,3 +1,3 @@
-exports.offline = function(req, res) {
+exports.offline = (req, res) => {
   res.render('components/base/errors/offline')
 }

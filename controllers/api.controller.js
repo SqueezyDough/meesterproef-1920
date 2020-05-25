@@ -10,8 +10,8 @@ const checkStatus = response => {
     }
 }
 
-exports.FetchData = function(url, ...params) {
-  console.log('Fetch data...')
+exports.FetchData = function(url, range,...params) {
+  console.log('Fetching data...')
 
   if (params) {
     params.map(param => {
@@ -22,6 +22,15 @@ exports.FetchData = function(url, ...params) {
   return fetch(url)
       .then(checkStatus)
       .then(data => data.text())
-      .then(data => JSON.parse(data))
+      .then(data => range ? limitResults(JSON.parse(data), range) : JSON.parse(data))
       .catch(err => console.log(err));
+}
+
+function limitResults(data, range) {
+  return data.reduce(function(accumulator, currentValue, currentIndex) {
+    if (currentIndex >= range[0] && currentIndex <= range[1]) {
+      accumulator.push(currentValue)
+    }
+    return accumulator
+  }, [])
 }

@@ -4,7 +4,7 @@
 }
 
 @font-face {
-  font-family: AvenirNext;
+  font-family: AvenirNextBold;
   font-weight: bold;
   src: url('/fonts/AvenirNextLTPro-Bold.otf') format("opentype");
 }
@@ -23,7 +23,6 @@ body {
 
 main {
   flex: 1 1 auto;
-  padding: 0 20px;
   width: 100%;
   max-width: 1110px;
   align-self: center;
@@ -70,4 +69,19 @@ ul {
     width: 100vw;
     height: 100vh;
   }
+
+  &.-as-header {
+    max-height: 32vh;
+
+    &:before, svg {
+      max-height: 32vh;
+    }
+  }
+}
+
+.default-header {
+  padding: 2rem 1rem;
+  margin: 3rem 0;
+  background-color: var(--white);
+  color: var(--primary-color)
 }
