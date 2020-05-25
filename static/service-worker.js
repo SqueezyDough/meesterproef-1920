@@ -2,7 +2,9 @@ const CORE_CACHE = 1
 const CORE_CACHE_NAME = `core-cache-v${CORE_CACHE}`
 const CORE_ASSETS = [
     '/',
-    '/dist/site.css'
+    '/offline',
+    '/dist/site.css',
+    // TODO: error pages
 ]
 
 self.addEventListener('install', e => {
@@ -35,7 +37,7 @@ self.addEventListener('fetch', e => {
         e.respondWith(
             caches.open('base-cache')
                 .then(cache => cache.match(e.request.url))
-                .then(res => res ? res : fetchAndCache(e.request, `base-cache`)
+                .then(res => res ? res : fetchAndCache(e.request, 'base-cache')
                 .catch(e => {
                     return caches.open(CORE_CACHE_NAME)
                         .then(cache => cache.match('/offline'))

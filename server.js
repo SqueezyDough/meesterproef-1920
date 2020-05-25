@@ -1,6 +1,7 @@
 import express from 'express'
 import compression from 'compression'
 import router from './routes/index.routes'
+import errorRouter from './routes/error.routes'
 import bodyParser from 'body-parser'
 import exphbs from 'express-handlebars'
 import path from 'path'
@@ -33,4 +34,5 @@ APP
     ]
   }))
   .use('/', router)
+  .use('/', errorRouter)
   .listen(PORT, () => console.log(`Using port: ${PORT}`))
