@@ -35,9 +35,9 @@ self.addEventListener('fetch', e => {
     // generic fallback
     } else if (isHtmlGetRequest(e.request)) {
         e.respondWith(
-            caches.open('base-cache')
+            caches.open('html-cache')
                 .then(cache => cache.match(e.request.url))
-                .then(res => res ? res : fetchAndCache(e.request, 'base-cache')
+                .then(res => res ? res : fetchAndCache(e.request, 'html-cache')
                 .catch(e => {
                     return caches.open(CORE_CACHE_NAME)
                         .then(cache => cache.match('/offline'))
@@ -48,7 +48,7 @@ self.addEventListener('fetch', e => {
 })
 
 function fetchAndCache(request, cacheName) {
-    return fetch(url)
+    return fetch(request)
         .then(response => {
             if (!response.ok) {
                 throw new TypeError('Bad response status');
