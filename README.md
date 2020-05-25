@@ -16,6 +16,11 @@ In this course we will bundle all our newly acquired superpowers to create a web
 
 ------
 
+## API
+We use the [Medicines API](https://hva-cmd-meesterproef-ai.now.sh/medicines) provided by De Voorhoede to get all medicine data.
+
+------
+
 <a name="install">
   
 ## Install Notes
