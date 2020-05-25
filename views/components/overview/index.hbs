@@ -1,4 +1,17 @@
-<main>
-  {{> 'base/_svg-background'}}
+<main class="overview">
+  <section class="svg-background -as-header">
+    <svg>
+      <pattern id="circle-pattern" class="svg-background__pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
+      <circle id="pattern-circle" cx="3" cy="1" r="1" fill= "#888888" />
+      </pattern>
+      <rect class="svg-background__rectangle" x="0" y="0" fill="url(#circle-pattern)" />
+    </svg>
+  </section>
+
+  <h1 class="default-header">Alle medicijnen</h1>
+
+  <section class="overview__cards">
+    {{> 'overview/_card'}}
+  </section>
 </main>
 {{> 'base/_footer' }}

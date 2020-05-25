@@ -30,7 +30,11 @@ APP
       {
         dir: path.join(__dirname, '/views/components/home/partials'),
         namespace: 'home'
-      }    
+      },
+      {
+        dir: path.join(__dirname, '/views/components/overview/partials'),
+        namespace: 'overview'
+      }      
     ]
   }))
   .use('/', router)

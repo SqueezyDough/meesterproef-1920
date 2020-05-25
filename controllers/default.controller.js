@@ -13,7 +13,9 @@ exports.scanner = async (req, res) => {
 
   console.log(medicines)
 
-  res.render('components/base/scanner')
+  res.render('components/base/scanner', {
+    medicines: medicines
+  })
 }
 
 exports.snapshot = async (req, res) => {

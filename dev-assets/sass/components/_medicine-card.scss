@@ -1,0 +1,57 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0 6px 8px 0 var(--light-grey);
+
+  &__header {
+    padding: 1rem;
+    
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    small {
+      color: var(--secondary-color);
+      font-family: AvenirNextBold;
+      letter-spacing: .1rem;
+    }
+  }
+}
+
+.card__details {
+  margin-top: 2rem;
+  background-color: var(--secondary-color);
+
+  summary {
+    padding: 1rem;
+
+    &::-webkit-details-marker {
+      background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/right-arrow.svg);
+      color: transparent;
+    }
+
+    &:focus {    
+      &::-webkit-details-marker {
+        background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/down-arrow.svg);
+        color: transparent;
+      }
+    }
+  }
+
+  &__body, &__footer {
+    padding: 1rem;
+    //border-top: 1px solid var(--light-grey);
+    background-color: var(--tertiary-color);
+
+    h2 {
+      font-size: 1.2rem;
+    }
+  
+    h3 {
+      font-size: 1rem;
+    }
+  }
+}
