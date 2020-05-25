@@ -1,12 +1,18 @@
 import fs from 'fs'
 import uid from 'uid'
+import * as api from './api.controller'
 import * as tesseract from './tesseract.controller'
 
 exports.home = (req, res) => {
   res.render('components/home/index')
 }
 
-exports.scanner = (req, res) => {
+exports.scanner = async (req, res) => {
+  const url = 'https://hva-cmd-meesterproef-ai.now.sh/medicines'
+  const medicines = await api.FetchData(url)
+
+  console.log(medicines)
+
   res.render('components/base/scanner')
 }
 
