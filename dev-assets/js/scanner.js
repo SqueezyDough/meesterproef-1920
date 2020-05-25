@@ -7,9 +7,7 @@ if (navigator.mediaDevices.getUserMedia) {
   switch(window_path_split[1]) {
     case 'scan-medicine':
       const tesseract_worker = Tesseract.createWorker({
-        //logger: m => console.log(m)
       })
-      //Tesseract.setLogging(true)
 
       navigator.mediaDevices.getUserMedia({
         audio: false,
@@ -49,8 +47,9 @@ function appendTesseractOutput(output) {
 }
 
 // TODO EXIT STATEMENT SHOULD BE WHEN MEDICINE HAS BEEN RETRIEVED FROM API, AND WORKER.TERMINATE
+// TODO RENAME FUNCTION
 async function recognizeRVG(tesseract_worker) {
-  let result = undefined
+  let result = null
   const base64_image= getBase64Image()
   await tesseract_worker.load()
   await tesseract_worker.loadLanguage('eng')
