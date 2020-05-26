@@ -14,7 +14,7 @@ dotenv.config()
 // mongo db connection
 const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}`
 
-mongoose.connect(url, {	useNewUrlParser: true });
+mongoose.connect(url, {	useNewUrlParser: true, useUnifiedTopology: true });
 
 const PORT = process.env.PORT || 8888,
   APP = express(),
