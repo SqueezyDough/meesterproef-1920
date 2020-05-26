@@ -4,10 +4,17 @@ import router from './routes/index.routes'
 import errorRouter from './routes/error.routes'
 import bodyParser from 'body-parser'
 import exphbs from 'express-handlebars'
+import mongoose from 'mongoose'
 import path from 'path'
 import dotenv from 'dotenv'
 
+
 dotenv.config()
+
+// mongo db connection
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}`
+
+mongoose.connect(url, {	useNewUrlParser: true });
 
 const PORT = process.env.PORT || 8888,
   APP = express(),
