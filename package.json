@@ -28,6 +28,8 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.16",
     "node-fetch": "^2.6.0",
     "node-tesseract-ocr": "^1.0.0"
   },

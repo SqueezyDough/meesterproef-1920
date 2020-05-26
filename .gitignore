@@ -2,4 +2,3 @@ node_modules
 /static/dist
 package-lock.json
 .env
-temp
