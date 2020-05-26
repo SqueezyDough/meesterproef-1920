@@ -1,12 +1,12 @@
-import * as api from './api.controller'
+import * as tsModels from './tesseract-models.controller'
+import * as mongooseUtils from './utils/mongoose.utils.controller'
 
 exports.index = async (req, res) => {
-  const url = 'https://hva-cmd-meesterproef-ai.now.sh/medicines'
-  const medicines = await api.FetchData(url, [0, 200])
-
-  console.log(medicines)
+  // TODO: Clear db and uncomment if you want to populate new data
+  // await tsModels.fetchNewData()
+  const trained_data = await mongooseUtils.getAllMedicines()
 
   res.render('components/overview/index', {
-    medicines: medicines
+    trained_data: trained_data
   })
 }

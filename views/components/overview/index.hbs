@@ -11,7 +11,9 @@
   <h1 class="default-header">Alle medicijnen</h1>
 
   <section class="overview__cards">
-    {{> 'overview/_card'}}
+    {{#each trained_data}}
+      {{> 'overview/_card'}}
+    {{/each}}
   </section>
 </main>
 {{> 'base/_footer' }}

@@ -12,7 +12,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 // mongo db connection
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}`
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PW}@${process.env.DB_HOST}`
 
 mongoose.connect(url, {	useNewUrlParser: true, useUnifiedTopology: true });
 

@@ -5,13 +5,12 @@ mongoose.set("useCreateIndex", true)
 
 const meds_schema = new Schema({
   _id: {
-    type: Number,
-    required: [true, "Field is required"],
-    index: true,
-    unique: [true, "Id already exists"]
+    type: Number
   },
   registrationNumber: {
     type: String,
+    index: true,
+    unique: [true, "This registration number already exists"],
     required: [true, "Field is required"]
   },
   name: {
@@ -20,7 +19,10 @@ const meds_schema = new Schema({
   },
   activeIngredient: {
     type: String
+  },
+  matchCount: {
+    type: Number
   }
 })
 
-module.exports(mongoose.model('trained_meds_list', meds_schema))
+module.exports = mongoose.model('trained_meds_list', meds_schema)
