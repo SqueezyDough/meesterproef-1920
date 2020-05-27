@@ -5,6 +5,7 @@ In this course we will bundle all our newly acquired superpowers to create a web
 - [Collaborators](#collaborators)
 - [API](#api)
 - [Install notes](#install)
+- [Machine learning](#database)
 - [Machine learning](#machine-learning)
 - [Other documentation](#docs)
 
@@ -43,8 +44,27 @@ We use the [Medicines API](https://hva-cmd-meesterproef-ai.now.sh/medicines) pro
 
 ------
 
-<a name="docs">
+<a name="database">
+  
+## Database
 
+<details>
+  <summary>View ERD</summary>
+    
+  ![meds_erd](https://user-images.githubusercontent.com/33430653/83024678-053cd000-a02f-11ea-89ee-f4d7ad417dc3.png)
+</details>
+
+### Buckets
+Buckets are a collection of clusters. Each bucket has a tier number. The tier number decides which bucket will be searched in first. Bucket tier 1 will be lokked at first. When no matching cluster is found, it will look at cluster 2 etc.
+
+### Clusters
+Clusters are a collection of medicines that correspond with the cluster identifier. For example, Someone is looking for Strepsils, Lemon and honey. Strepsils here is the cluster identifier and contains all medicines with the name Strepsils. 
+
+### Medicines
+Medicines contain information about a specific medicine.
+
+<a name="ml">
+  
 ## Machine learning
 For this project we make use of machine learning to recognize characters on medicine boxes. The package we use is [Tesseract](https://www.npmjs.com/package/node-tesseract-ocr).
 In order to make this project a little bit more challenging we decided to implement a ranking system for recognition of medicine names, we do this by calculating positive findings confirmed by the user
@@ -69,5 +89,6 @@ Recognizing RVG code flow
 ![flow-chart-v1-recognise-rvg-flow](https://user-images.githubusercontent.com/19706066/83023595-64014a00-a02d-11ea-841e-e854756ca2ce.jpg)
 </details>
 
+<a name="docs">
 ## Other documentation
 For more documentation about our medicine scanner visit our [Wicky](https://github.com/SqueezyDough/meesterproef-1920/wiki)!
