@@ -54,27 +54,52 @@ async function recognizeRVG(tesseract_worker) {
   await tesseract_worker.load()
   await tesseract_worker.loadLanguage('eng')
   await tesseract_worker.initialize('eng')
-  
+
   try {
     result = await tesseract_worker.recognize(base64_image)
-    
+
     if(result.data.text === '') throw 'No words detected'
 
     const rvg_index = result.data.words.findIndex(word => {
       return word.text.toLowerCase() === 'rvg'
     })
-    
+
     // Check if RVG has been found inside word list
+    // TODO EXPAND TO ALSO ACCEPT THE OTHER CODE ASWELL
     if(rvg_index === -1) throw 'RVG not detected inside words list'
-    
+
     // Check if RVG code is of correct format
-    if(/^\d+$/.test(result.data.words[rvg_index+1].text) !== true) throw 'Suspected code is not of correct format'
-    
-    console.log(result.data.words[rvg_index+1])
-    console.log(result.data.words)
+    const detected_rvg_code = result.data.words[rvg_index+1]
+
+    if(/^\d+$/.test(detected_rvg_code.text) !== true) throw 'Suspected code is not of correct format'
+
+    if(detected_rvg_code.choices.length > 1) {
+      const ordered_coices = detected_rvg_code.choices.sort((a, b) => {
+        return b.confidence - a.confidence
+      })
+
+      // TODO SEARCH API FOR ALL THE CHOICES
+    } else {
+      // TODO SEARCH API FOR THE CHOICE
+      const suspected_code = {
+        code: detected_rvg_code.text,
+        confidence: detected_rvg_code.confidence
+      }
+      
+      searchMedicine(suspected_code)
+    }
   }
   catch(error) {
     console.log(error)
     recognizeRVG(tesseract_worker)
   }
+}
+
+async function searchMedicine(suspected_code) {
+  const client = algoliasearch('EJEEPP9XOK', 'efe676cfc1248e7b10441ffbc76920cc')
+  const index = client.initIndex('dev_MEDICINE')
+  console.log(suspected_code)
+  index.search(suspected_code.code).then(({ hits }) => {
+    console.log(hits);
+  });
 }
