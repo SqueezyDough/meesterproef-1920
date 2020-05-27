@@ -14,7 +14,7 @@ exports.FetchData = function(url, range,...params) {
   console.log('Fetching data...')
 
   if (params) {
-    params.map(param => {
+    params.forEach(param => {
       url = url += param
     })
   }
