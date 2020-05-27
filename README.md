@@ -90,5 +90,6 @@ Recognizing RVG code flow
 </details>
 
 <a name="docs">
+  
 ## Other documentation
 For more documentation about our medicine scanner visit our [Wicky](https://github.com/SqueezyDough/meesterproef-1920/wiki)!
