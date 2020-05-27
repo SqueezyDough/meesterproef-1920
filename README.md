@@ -56,9 +56,13 @@ Recognition flow start
 
 ![flow-chart-v1-flow-start](https://user-images.githubusercontent.com/19706066/83023546-54820100-a02d-11ea-81b4-aa99712fc7b8.jpg)
 
+------
+
 Recognizing medicine name flow
 
 ![flow-chart-v1-recognise-name-flow](https://user-images.githubusercontent.com/19706066/83023571-5cda3c00-a02d-11ea-9568-828ea07fc889.jpg)
+
+------
 
 Recognizing RVG code flow
 
