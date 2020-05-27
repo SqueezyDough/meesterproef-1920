@@ -95,14 +95,6 @@ async function recognizeRVG(tesseract_worker) {
   }
 }
 
-function fetchData(url = 'https://hva-cmd-meesterproef-ai.now.sh/medicines') {
-  return fetch(url)
-    .then(data => {
-      return data.json()
-    })
-  .catch(err => console.log(err));
-}
-
 async function searchMedicine(suspected_code) {
   const client = algoliasearch('EJEEPP9XOK', 'efe676cfc1248e7b10441ffbc76920cc')
   const index = client.initIndex('dev_MEDICINE')
