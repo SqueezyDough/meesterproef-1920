@@ -54,15 +54,15 @@ and comparing these with future searches.
 <summary>Flow chart medicine recognition</summary>
 Recognition flow start
 
-<img src="![flow-chart-v1-flow-start](https://user-images.githubusercontent.com/19706066/83023546-54820100-a02d-11ea-81b4-aa99712fc7b8.jpg)" alt="Flow chart beginning">
+![flow-chart-v1-flow-start](https://user-images.githubusercontent.com/19706066/83023546-54820100-a02d-11ea-81b4-aa99712fc7b8.jpg)
 
 Recognizing medicine name flow
 
-<img src="![flow-chart-v1-recognise-name-flow](https://user-images.githubusercontent.com/19706066/83023571-5cda3c00-a02d-11ea-9568-828ea07fc889.jpg)" alt="Flow medicine name recognizing">
+![flow-chart-v1-recognise-name-flow](https://user-images.githubusercontent.com/19706066/83023571-5cda3c00-a02d-11ea-9568-828ea07fc889.jpg)
 
 Recognizing RVG code flow
 
-<img src="![flow-chart-v1-recognise-rvg-flow](https://user-images.githubusercontent.com/19706066/83023595-64014a00-a02d-11ea-841e-e854756ca2ce.jpg)" alt="Flow RVG code recognizing">
+![flow-chart-v1-recognise-rvg-flow](https://user-images.githubusercontent.com/19706066/83023595-64014a00-a02d-11ea-841e-e854756ca2ce.jpg)
 </details>
 
 ## Other documentation
