@@ -5,7 +5,7 @@ In this course we will bundle all our newly acquired superpowers to create a web
 - [Collaborators](#collaborators)
 - [API](#api)
 - [Install notes](#install)
-- [Machine learning](#database)
+- [Database](#database)
 - [Machine learning](#machine-learning)
 - [Other documentation](#docs)
 
