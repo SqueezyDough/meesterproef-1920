@@ -22,7 +22,7 @@ exports.updateMatchCount = regis_number => {
   return SCHEMA.findOneAndUpdate({
     registrationNumber: regis_number
   }, {
-    matchCount: this.matchCount += 1
+    confirmations: this.confirmations += 1
   }).lean()
 }
 
@@ -32,7 +32,7 @@ exports.createMedicine = data => {
     registrationNumber: data.registrationNumber,
     name: data.name,
     activeIngredient: data.activeIngredient,
-    matchCount: 0
+    confirmations: 0
   })
 }
 

@@ -20,7 +20,7 @@ const meds_schema = new Schema({
   activeIngredient: {
     type: String
   },
-  matchCount: {
+  confirmations: {
     type: Number
   }
 })
