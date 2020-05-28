@@ -1,5 +1,4 @@
 import * as api from './api.controller'
-import * as tsModels from './tesseract-models.controller'
 
 exports.home = (req, res) => {
   res.render('components/home/index')
