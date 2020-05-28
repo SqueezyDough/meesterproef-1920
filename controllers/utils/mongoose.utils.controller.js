@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose'
-import * as medsModel from '../../models/medicine.model'
+import * as medsModel from '../../models/Medicine.model'
 
-const SCHEMA = mongoose.model('medicine', medsModel.meds_schema)
+const SCHEMA = mongoose.model('Medicine', medsModel.meds_schema)
 
 exports.getAllMedicines = () => {
   return SCHEMA.find({}).lean()
