@@ -7,6 +7,10 @@ const meds_schema = new Schema({
   _id: {
     type: Number
   },
+  clusterId: {
+    type: Number,
+    // required: [true, "Field is required"]
+  },
   registrationNumber: {
     type: String,
     index: true,
@@ -25,4 +29,4 @@ const meds_schema = new Schema({
   }
 })
 
-module.exports = mongoose.model('trained_meds_list', meds_schema)
+module.exports = mongoose.model('medicine', meds_schema)
