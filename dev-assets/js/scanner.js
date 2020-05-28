@@ -98,8 +98,10 @@ async function recognizeRVG(tesseract_worker) {
 async function searchMedicine(suspected_code) {
   const client = algoliasearch('EJEEPP9XOK', 'efe676cfc1248e7b10441ffbc76920cc')
   const index = client.initIndex('dev_MEDICINE')
-  console.log(suspected_code)
-  index.search(suspected_code.code).then(({ hits }) => {
-    console.log(hits);
+
+  const suspected_medicines = index.search(suspected_code.code).then(({ hits }) => {
+    return hits
   });
+
+  return suspected_medicines
 }
