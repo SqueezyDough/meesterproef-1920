@@ -61,7 +61,7 @@ async function recognizeRVG(tesseract_worker) {
     if(result.data.text === '') throw 'No words detected'
 
     const code_prefix_index = result.data.words.findIndex(word => {
-      return word.text.toLowerCase() === 'rvg' || word.text.toLowerCase === 'rvh'
+      return word.text.toLowerCase() === 'rvg' || word.text.toLowerCase === 'rvh' || word.text.toLowerCase === 'eu'
     })
 
     // Check if RVG has been found inside word list
