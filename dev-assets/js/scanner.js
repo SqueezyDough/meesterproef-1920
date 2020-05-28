@@ -60,21 +60,20 @@ async function recognizeRVG(tesseract_worker) {
 
     if(result.data.text === '') throw 'No words detected'
 
-    const rvg_index = result.data.words.findIndex(word => {
-      return word.text.toLowerCase() === 'rvg'
+    const code_prefix_index = result.data.words.findIndex(word => {
+      return word.text.toLowerCase() === 'rvg' || word.text.toLowerCase === 'rvh'
     })
 
-    const rvh_index = result.data.words.findIndex(word => {
-      return word.text.toLowerCase() === 'rvh'
-    })
+    //const rvh_index = result.data.words.findIndex(word => {
+      //return word.text.toLowerCase() === 'rvh'
+    //})
 
     // Check if RVG has been found inside word list
-    if(rvg_index === -1 && rvh_index === -1) throw 'RVG/RVH not detected inside words list'
+    if(code_prefix_index === -1) throw 'RVG/RVH not detected inside words list'
     
     let detected_code = ''
-    // Check if RVG code is of correct format
-    if(rvg_index !== -1) detected_code = result.data.words[rvg_index+1]
-    if(rvh_index !== -1) detected_code = result.data.words[rvh_index+1]
+
+    if(code_prefix_index !== -1) detected_code = result.data.words[code_prefix_index+1]
 
     if(/^\d+$/.test(detected_code.text) !== true) throw 'Suspected code is not of correct format'
 

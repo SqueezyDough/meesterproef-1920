@@ -9,7 +9,7 @@
     grid-gap: 1rem;
   }
 
-  &.scanner {
+  &.-scanner {
     @supports (display: grid) {
       display: grid;
       grid-template-columns: 1fr;
