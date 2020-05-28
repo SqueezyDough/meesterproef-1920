@@ -22,7 +22,11 @@ const meds_schema = new Schema({
   },
   confirmations: {
     type: Number
+  },
+  cluster: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'Medicine'
   }
 })
 
-module.exports = mongoose.model('trained_meds_list', meds_schema)
+module.exports = mongoose.model('Medicine', meds_schema)

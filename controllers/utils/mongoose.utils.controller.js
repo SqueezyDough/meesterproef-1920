@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose'
-import * as medsModel from '../../models/trained-meds-list.model'
+import * as medsModel from '../../models/Medicine.model'
 
-const SCHEMA = mongoose.model('trained_meds_list', medsModel.meds_schema)
+const SCHEMA = mongoose.model('Medicine', medsModel.meds_schema)
 
 exports.getAllMedicines = () => {
   return SCHEMA.find({}).lean()
@@ -29,6 +29,7 @@ exports.updateMatchCount = regis_number => {
 exports.createMedicine = data => {
   return new SCHEMA({
     _id: data.id,
+    // clusterId: findCluster()
     registrationNumber: data.registrationNumber,
     name: data.name,
     activeIngredient: data.activeIngredient,
