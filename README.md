@@ -51,7 +51,7 @@ We use the [Medicines API](https://hva-cmd-meesterproef-ai.now.sh/medicines) pro
 <details>
   <summary>View ERD</summary>
     
-  ![meds_erd](https://user-images.githubusercontent.com/33430653/83024678-053cd000-a02f-11ea-89ee-f4d7ad417dc3.png)
+  ![meds_erd](https://user-images.githubusercontent.com/33430653/83125649-1beb3180-a0d8-11ea-9709-19201a9f9137.png)
 </details>
 
 ### Buckets
