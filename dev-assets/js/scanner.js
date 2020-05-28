@@ -60,21 +60,21 @@ async function recognizeRVG(tesseract_worker) {
 
     if(result.data.text === '') throw 'No words detected'
 
-    const rvg_index = result.data.words.findIndex(word => {
-      return word.text.toLowerCase() === 'rvg'
+    const code_prefix_index = result.data.words.findIndex(word => {
+      return word.text.toLowerCase() === 'rvg' || word.text.toLowerCase === 'rvh' || word.text.toLowerCase === 'eu'
     })
 
     // Check if RVG has been found inside word list
-    // TODO EXPAND TO ALSO ACCEPT THE OTHER CODE ASWELL
-    if(rvg_index === -1) throw 'RVG not detected inside words list'
+    if(code_prefix_index === -1) throw 'RVG/RVH not detected inside words list'
+    
+    let detected_code = ''
 
-    // Check if RVG code is of correct format
-    const detected_rvg_code = result.data.words[rvg_index+1]
+    if(code_prefix_index !== -1) detected_code = result.data.words[code_prefix_index+1]
 
-    if(/^\d+$/.test(detected_rvg_code.text) !== true) throw 'Suspected code is not of correct format'
+    if(/^\d+$/.test(detected_code.text) !== true) throw 'Suspected code is not of correct format'
 
-    if(detected_rvg_code.choices.length > 1) {
-      const ordered_coices = detected_rvg_code.choices.sort((a, b) => {
+    if(detected_code.choices.length > 1) {
+      const ordered_coices = detected_code.choices.sort((a, b) => {
         return b.confidence - a.confidence
       })
 
@@ -82,11 +82,25 @@ async function recognizeRVG(tesseract_worker) {
     } else {
       // TODO SEARCH API FOR THE CHOICE
       const suspected_code = {
-        code: detected_rvg_code.text,
-        confidence: detected_rvg_code.confidence
+        code: detected_code.text,
+        confidence: detected_code.confidence
       }
       
-      searchMedicine(suspected_code)
+      const suspected_medicines = await searchMedicine(suspected_code)
+
+      const medicine_cards = await fetch('/scan-medicine', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(suspected_medicines)
+      })
+        .then(response => response.json())
+      
+      const suspected_medicines_container = document.querySelector('.overview__cards')
+      medicine_cards.forEach(card => {
+        suspected_medicines_container.insertAdjacentHTML('beforeend', card)
+      })
     }
   }
   catch(error) {
