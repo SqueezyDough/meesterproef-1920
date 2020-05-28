@@ -5,6 +5,7 @@ const ROUTER = express.Router()
 
 ROUTER.get('/', base.home)
 ROUTER.get('/scan-medicine', base.scanner)
+ROUTER.post('/scan-medicine', base.scannerPost)
 ROUTER.get('/overview', overview.index)
 
 module.exports = ROUTER
