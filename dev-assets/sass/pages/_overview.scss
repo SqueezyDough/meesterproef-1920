@@ -9,6 +9,10 @@
     grid-gap: 1rem;
   }
 
+  &__loading-state {
+    justify-self: center;
+  }
+
   &.-scanner {
     @supports (display: grid) {
       display: grid;

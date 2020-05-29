@@ -43,7 +43,15 @@ function getBase64Image() {
 
 function appendTesseractOutput(output) {
   const tesseract_output_container = document.getElementById('tesseract_output_container')
-  tesseract_output_container.innerHTML = `Scanned text: ${output}`
+  tesseract_output_container.innerHTML = `Wij hebben de code: ${output.text} met een zekerheid van ${output.confidence.toFixed(2)} gescaned`
+}
+
+function appendLoadingState(suspected_medicines_container) {
+  suspected_medicines_container.innerHTML = '<img class="overview__cards__loading-state" src="/visuals/loading-state.gif" alt="Loading overview">'
+}
+
+function removeLoadingState(suspected_medicines_container) {
+  suspected_medicines_container.innerHTML = ''
 }
 
 // TODO EXIT STATEMENT SHOULD BE WHEN MEDICINE HAS BEEN RETRIEVED FROM API, AND WORKER.TERMINATE
@@ -66,26 +74,28 @@ async function recognizeRVG(tesseract_worker) {
 
     // Check if RVG has been found inside word list
     if(code_prefix_index === -1) throw 'RVG/RVH not detected inside words list'
-    
+
     let detected_code = ''
 
     if(code_prefix_index !== -1) detected_code = result.data.words[code_prefix_index+1]
 
     if(/^\d+$/.test(detected_code.text) !== true) throw 'Suspected code is not of correct format'
 
+    const suspected_medicines_container = document.querySelector('.overview__cards')
+    appendTesseractOutput(detected_code)
+    appendLoadingState(suspected_medicines_container)
+
     if(detected_code.choices.length > 1) {
+      // TODO SEARCH API FOR ALL THE CHOICES IF THERE ARE ANY
       const ordered_coices = detected_code.choices.sort((a, b) => {
         return b.confidence - a.confidence
       })
-
-      // TODO SEARCH API FOR ALL THE CHOICES
     } else {
-      // TODO SEARCH API FOR THE CHOICE
       const suspected_code = {
         code: detected_code.text,
         confidence: detected_code.confidence
       }
-      
+
       const suspected_medicines = await searchMedicine(suspected_code)
 
       const medicine_cards = await fetch('/scan-medicine', {
@@ -97,7 +107,7 @@ async function recognizeRVG(tesseract_worker) {
       })
         .then(response => response.json())
       
-      const suspected_medicines_container = document.querySelector('.overview__cards')
+      removeLoadingState(suspected_medicines_container)
       medicine_cards.forEach(card => {
         suspected_medicines_container.insertAdjacentHTML('beforeend', card)
       })

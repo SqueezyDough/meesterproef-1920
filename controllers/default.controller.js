@@ -1,4 +1,3 @@
-import * as tsModels from './tesseract-models.controller'
 import fs from 'fs'
 import path from 'path'
 import { compile } from 'handlebars'
