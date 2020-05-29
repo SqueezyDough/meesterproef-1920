@@ -43,7 +43,7 @@ function getBase64Image() {
 
 function appendTesseractOutput(output) {
   const tesseract_output_container = document.getElementById('tesseract_output_container')
-  tesseract_output_container.innerHTML = `Wij hebben de code: ${output.text} met een zekerheid van ${output.confidence.toFixed(2)} gescaned`
+  tesseract_output_container.innerHTML = `Wij hebben de code: ${output.text} met een zekerheid van ${output.confidence.toFixed(2)} gescanned`
 }
 
 function appendLoadingState(suspected_medicines_container) {
