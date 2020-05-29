@@ -1,7 +1,3 @@
-import dotenv from 'dotenv'
-
-dotenv.config()
-
 const video = document.getElementById('scanner_element')
 const window_path = window.location.pathname
 
@@ -124,7 +120,7 @@ async function recognizeRVG(tesseract_worker) {
 }
 
 async function searchMedicine(suspected_code) {
-  const client = algoliasearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_KEY)
+  const client = algoliasearch('EJEEPP9XOK', 'efe676cfc1248e7b10441ffbc76920cc')
   const index = client.initIndex('dev_MEDICINE')
 
   const suspected_medicines = index.search(suspected_code.code).then(({ hits }) => {
