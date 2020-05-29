@@ -25,7 +25,7 @@ const cluster_schema = new Schema({
   ],
 })
 
-AiSchema.virtual("totalConfirmations")
+cluster_schema.virtual("totalConfirmations")
   .get(function (brandModel) {
     return this.medicines.confirmations.reduce(function(acc, currValue) {
       return acc + currValue
