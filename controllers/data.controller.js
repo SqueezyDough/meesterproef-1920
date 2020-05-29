@@ -1,13 +1,43 @@
+import * as mongoose from 'mongoose'
 import * as api from './api.controller'
-import * as mongooseUtils from './utils/mongoose.utils.controller'
+import { medicines_controller } from './databaseUtils/medicines.controller'
+import { clusters_controller, cluster_controller } from './databaseUtils/clusters.controller'
 
-// TODO: this function isn't needed right now because we load the top 200 from the db. I should be reworked so it adds/removes data to the top 2000
-exports.fetchNewData = async () => {
+exports.resetMedicines = async () => {
+  dropCollection('medicines')
+  await fetchNewData()
+}
+
+exports.resetClusters = medicines => {
+  dropCollection('clusters')
+
+  let UniqueMedicineNames = new Set()
+
+  medicines.forEach(medicine => {
+    UniqueMedicineNames.add(medicine.title)   
+  })
+
+  UniqueMedicineNames.forEach(uniqueName => {
+    const cluster = cluster_controller.create(uniqueName)
+    cluster_controller.save(cluster)
+  })
+}
+
+// Fetch from API
+const fetchNewData = async () => {
   const url = 'https://hva-cmd-meesterproef-ai.now.sh/medicines'
   const medicines = await api.FetchData(url, [0, 200])
 
-  medicines.forEach(med => {
-    const scheme_medicine = mongooseUtils.createMedicine(med)
-    mongooseUtils.saveMedicine(scheme_medicine)
+  medicines.forEach(medicine => {
+    const scheme_medicine = medicines_controller.create(medicine)
+    medicines_controller.save(scheme_medicine)
+  })
+}
+
+const dropCollection = (collection) => {
+  const db = mongoose.default.connections[0].collections
+
+  db[collection].drop( function(err) {
+    console.log('collection dropped');
   })
 }

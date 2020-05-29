@@ -1,12 +1,16 @@
 import * as data from './data.controller'
-import * as mongooseUtils from './utils/mongoose.utils.controller'
+import { medicine_controller } from './databaseUtils/medicines.controller'
+import { cluster_controller } from './databaseUtils/clusters.controller'
+
+const mdes = require('./databaseUtils/medicines.controller')
 
 exports.index = async (req, res) => {
-  // TODO: Clear db and uncomment if you want to populate new data
-  // await data.fetchNewData()
-  const trained_data = await mongooseUtils.getAllMedicines()
+  // await data.resetMedicines()
+  const medicines = await medicine_controller.all()
+
+  data.resetClusters(medicines)
 
   res.render('components/overview/index', {
-    trained_data: trained_data
+    trained_data: medicines
   })
 }
