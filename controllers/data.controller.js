@@ -25,8 +25,8 @@ exports.resetClusters = medicines => {
 
 // Fetch from API
 const fetchNewData = async () => {
-  const url = 'https://hva-cmd-meesterproef-ai.now.sh/medicines'
-  const medicines = await api.FetchData(url, [0, 200])
+  const URL = 'https://hva-cmd-meesterproef-ai.now.sh/medicines'
+  const medicines = await api.FetchData(URL, [0, 200])
 
   medicines.forEach(medicine => {
     const scheme_medicine = medicines_controller.create(medicine)
