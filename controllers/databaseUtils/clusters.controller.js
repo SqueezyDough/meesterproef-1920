@@ -3,7 +3,7 @@ import * as model from '../../models/cluster.model'
 
 const SCHEMA = mongoose.model('Cluster', model.cluster_schema)
 
-export const cluster_controller = {
+export const clusters_controller = {
   create: identifier => {
     return new SCHEMA({
       identifier: identifier,

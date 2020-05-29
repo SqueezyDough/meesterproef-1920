@@ -3,7 +3,7 @@ import * as model from '../../models/medicine.model'
 
 const SCHEMA = mongoose.model('Medicine', model.meds_schema)
 
-export const medicine_controller = {
+export const medicines_controller = {
   all: () => {
     return SCHEMA.find({}).lean()
       .then(medicines => medicines)

@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose'
 import * as api from './api.controller'
 import { medicines_controller } from './databaseUtils/medicines.controller'
-import { clusters_controller, cluster_controller } from './databaseUtils/clusters.controller'
+import { clusters_controller } from './databaseUtils/clusters.controller'
 
 exports.resetMedicines = async () => {
   dropCollection('medicines')
@@ -18,8 +18,8 @@ exports.resetClusters = medicines => {
   })
 
   UniqueMedicineNames.forEach(uniqueName => {
-    const cluster = cluster_controller.create(uniqueName)
-    cluster_controller.save(cluster)
+    const cluster = clusters_controller.create(uniqueName)
+    clusters_controller.save(cluster)
   })
 }
 
