@@ -75,11 +75,7 @@ async function recognizeRVG(tesseract_worker) {
     // Check if RVG has been found inside word list
     if(code_prefix_index === -1) throw 'RVG/RVH not detected inside words list'
 
-    let detected_code = ''
-
-    if(code_prefix_index !== -1) detected_code = result.data.words[code_prefix_index+1]
-
-    if(/^\d+$/.test(detected_code.text) !== true) throw 'Suspected code is not of correct format'
+    const detected_code = result.data.words[code_prefix_index +1]
 
     const suspected_medicines_container = document.querySelector('.overview__cards')
     appendTesseractOutput(detected_code)
@@ -106,7 +102,7 @@ async function recognizeRVG(tesseract_worker) {
         body: JSON.stringify(suspected_medicines)
       })
         .then(response => response.json())
-      
+
       removeLoadingState(suspected_medicines_container)
       medicine_cards.forEach(card => {
         suspected_medicines_container.insertAdjacentHTML('beforeend', card)
