@@ -5,7 +5,7 @@ exports.index = async (req, res) => {
   // await data.resetMedicines()
   const medicines = await medicines_controller.all()
 
-  data.resetClusters(medicines)
+  // data.resetClusters(medicines)
 
   res.render('components/overview/index', {
     trained_data: medicines

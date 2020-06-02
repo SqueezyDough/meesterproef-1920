@@ -8,16 +8,18 @@ exports.resetMedicines = async () => {
   await fetchNewData()
 }
 
-exports.resetClusters = medicines => {
-  dropCollection('clusters')
+exports.resetClusters = async medicines => {
+  await dropCollection('clusters')
 
-  let UniqueMedicineNames = new Set()
+  let unique_medicine_names = new Set()
 
-  medicines.forEach(medicine => {
-    UniqueMedicineNames.add(medicine.title)   
+  await medicines.forEach(async medicine => {
+    const preferredIdentifier = await clusters_controller.rules(medicine.title)
+
+    unique_medicine_names.add(preferredIdentifier)   
   })
 
-  UniqueMedicineNames.forEach(uniqueName => {
+  unique_medicine_names.forEach(uniqueName => {
     const cluster = clusters_controller.create(uniqueName)
     clusters_controller.save(cluster)
   })
