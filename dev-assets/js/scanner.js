@@ -47,7 +47,7 @@ function appendTesseractOutput(output) {
 }
 
 function appendLoadingState(suspected_medicines_container) {
-  suspected_medicines_container.innerHTML = '<img class="overview__cards__loading-state" src="/visuals/loading-state.gif" alt="Loading overview">'
+  suspected_medicines_container.innerHTML = '<img class="overview__cards__loading-state" src="/visuals/gif/loading-state.gif" alt="Loading overview">'
 }
 
 function removeLoadingState(suspected_medicines_container) {
@@ -115,6 +115,7 @@ async function recognizeRVG(tesseract_worker) {
   }
 }
 
+// TODO check if we need to migrate this to the server
 async function searchMedicine(suspected_code) {
   const client = algoliasearch('EJEEPP9XOK', 'efe676cfc1248e7b10441ffbc76920cc')
   const index = client.initIndex('dev_MEDICINE')
