@@ -2,8 +2,18 @@
   {
     "preferredIdentifier": "A. Vogel",
     "subscriptions": [
-      "A.",
+      "A. Vogel",
       "A.Vogel"
+    ]
+  }, {
+    "preferredIdentifier": "Abacavir",
+    "subscriptions": [
+      "Abacavir/"
+    ]
+  }, {
+    "preferredIdentifier": "Paracetamol",
+    "subscriptions": [
+      "Paracetamol"
     ]
   }
 ] 

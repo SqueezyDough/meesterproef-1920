@@ -15,18 +15,22 @@ const cluster_schema = new Schema({
     required: [true, "Field is required"],
     unique: [true, "This cluster already exists"],
   },
-  certaintyIndex: {
-    type: Number
-  },
+  similarClusters: [
+    { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Cluster' ,
+    }
+  ],
   medicines: [
-    { type: mongoose.Schema.Types.ObjectId, 
+    { 
+      type: mongoose.Schema.Types.ObjectId, 
       ref: 'Medicine' 
     }
   ],
 })
 
 cluster_schema.virtual("totalConfirmations")
-  .get(function (brandModel) {
+  .get(() =>  {
     return this.medicines.confirmations.reduce(function(acc, currValue) {
       return acc + currValue
     })
