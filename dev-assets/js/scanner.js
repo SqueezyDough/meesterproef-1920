@@ -124,12 +124,17 @@ async function recognizeRVG(tesseract_worker) {
 
 // TODO check if we need to migrate this to the server
 async function searchMedicine(suspected_code) {
-  const client = algoliasearch('EJEEPP9XOK', 'efe676cfc1248e7b10441ffbc76920cc')
-  const index = client.initIndex('dev_MEDICINE')
+  const form_data = new FormData()
+  form_data.append('suspected_code', suspected_code)
 
-  const suspected_medicines = index.search(suspected_code.code).then(({ hits }) => {
-    return hits
-  });
+  const suspected_medicines = await fetch('/algolia-search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(suspected_code)
+  })
+    .then(response => response.json())
 
   return suspected_medicines
 }
