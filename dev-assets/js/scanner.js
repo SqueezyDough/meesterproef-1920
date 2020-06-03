@@ -43,7 +43,12 @@ function getBase64Image() {
 
 function appendTesseractOutput(output) {
   const tesseract_output_container = document.getElementById('tesseract_output_container')
-  tesseract_output_container.innerHTML = `Wij hebben de code: ${output.text} met een zekerheid van ${output.confidence.toFixed(2)} gescanned`
+  tesseract_output_container.innerHTML = `<p>Wij hebben de code: ${output.text} met een zekerheid van ${output.confidence.toFixed(2)} gescanned</p>`
+  tesseract_output_container.insertAdjacentHTML('beforeend', '<div id="tesseract_output_incorrect" class="tesseract__output-incorrect"><p>Niet het juiste gescaned? Scan opnieuw!</p></div>')
+
+  document.getElementById('tesseract_output_incorrect').addEventListener('click', event => {
+    tesseractReset(tesseract_output_container,document.querySelector('.overview__cards'))
+  })  
 }
 
 function appendLoadingState(suspected_medicines_container) {
@@ -107,6 +112,8 @@ async function recognizeRVG(tesseract_worker) {
       medicine_cards.forEach(card => {
         suspected_medicines_container.insertAdjacentHTML('beforeend', card)
       })
+
+      await tesseract_worker.terminate()
     }
   }
   catch(error) {
@@ -125,4 +132,14 @@ async function searchMedicine(suspected_code) {
   });
 
   return suspected_medicines
+}
+
+function tesseractReset(tesseract_output_container, overview_cards_container) {
+  tesseract_output_container.innerHTML = ''
+  overview_cards_container.innerHTML = ''
+
+  const tesseract_worker = Tesseract.createWorker({
+  })
+
+  recognizeRVG(tesseract_worker)
 }
