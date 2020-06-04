@@ -1,11 +1,14 @@
 const express = require('express')
 const base = require('../controllers/default.controller')
 const overview = require('../controllers/overview.controller')
+const data = require('../controllers/data.controller')
 const ROUTER = express.Router()
+
 
 ROUTER.get('/', base.home)
 ROUTER.get('/scan-medicine', base.scanner)
 ROUTER.post('/scan-medicine', base.scannerPost)
 ROUTER.get('/overview', overview.index)
+ROUTER.get('/reset', data.resetData)
 
 module.exports = ROUTER

@@ -35,7 +35,7 @@ export const clusters_controller = {
       console.log(`binding ${source_id} => ${target_id}`)
       
       SCHEMA.findOne({ _id: source_id }, (err, cluster) => {
-        cluster.similarClusters.push(target_id);
+        cluster.similarClusters.push(target_id)
         cluster.save();
       })
     } catch(err) {
@@ -43,9 +43,35 @@ export const clusters_controller = {
     }   
   },
 
-  populate: id => {
+  addMedicine: (cluster_id, medicine_id) => {
+    try {
+      console.log(`adding ${medicine_id} => ${cluster_id}`)
+      
+      SCHEMA.findOne({ _id: cluster_id }, (err, cluster) => {
+        cluster.medicines.push(medicine_id)
+        cluster.save();
+      })
+    } catch(err) {
+      console.log(err)
+    }   
+  },
+
+  populateBind: id => {
       SCHEMA.findOne({ _id: id })
       .populate('Cluster')
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((error) => {
+        console.log(error)
+    })
+  },
+
+  populateMedicines: id => {
+    console.log(`populate cluster: ${id}`)
+
+    SCHEMA.findOne({ _id: `${id}` })
+      .populate('Medicine')
       .then((result) => {
         console.log(result)
       })
@@ -84,32 +110,48 @@ export const clusters_controller = {
       unique_medicine_names.add(preferredIdentifier)   
     })
   
-    unique_medicine_names.forEach(uniqueName => {
-      const cluster = clusters_controller.create(uniqueName)
+    unique_medicine_names.forEach(async uniqueName => {
+      const cluster = await clusters_controller.create(uniqueName)
       clusters_controller.save(cluster)
     })
 
-    bindSimilarClusters(unique_medicine_names)
+    populateClusters(unique_medicine_names, medicines)
   }
 }
 
-async function bindSimilarClusters(names) {
+async function populateClusters(names, medicines) {
   const clusters = await clusters_controller.all()
   const cluster_names = [...names]
 
-  clusters.forEach(cluster => {
-    const clusters_exclude_self = cluster_names.filter(name => name !== cluster.identifier)
-    const matches = string_similarity.findBestMatch(cluster.identifier, clusters_exclude_self)
+  await addMedicinesToClusters(cluster_names, medicines)
 
-    matches.ratings.forEach(async rating => {
-      if(rating.rating >= .60) {      
-        const matched_cluster = await clusters_controller.findByIdentifier(rating.target)
+  clusters.forEach(async cluster => {
+    await clusters_controller.populateMedicines(cluster._id)
+    bindSimilarClusters(cluster, cluster_names)    
+  })
+}
 
-        clusters_controller.bind(cluster._id, matched_cluster._id)
-        clusters_controller.populate(cluster._id)
-      
-        return rating
-      }
-    })
-  }) 
+async function bindSimilarClusters(cluster, cluster_names) {
+  const clusters_exclude_self = cluster_names.filter(name => name !== cluster.identifier)
+  const matches = string_similarity.findBestMatch(cluster.identifier, clusters_exclude_self)
+
+  matches.ratings.forEach(async rating => {
+    if(rating.rating >= .60) {      
+      const matched_cluster = await clusters_controller.findByIdentifier(rating.target)
+
+      clusters_controller.bind(cluster._id, matched_cluster._id)
+      clusters_controller.populateBind(cluster._id)
+    }
+  })
+}
+
+async function addMedicinesToClusters(cluster_names, medicines) {
+  medicines.forEach(async medicine => {
+    const preferredIdentifier = await clusters_controller.rules(medicine.title) 
+    const compared_names = string_similarity.findBestMatch(preferredIdentifier, cluster_names)
+    const best_matched_cluster_name = cluster_names[compared_names.bestMatchIndex]
+    const matched_cluster = await clusters_controller.findByIdentifier(best_matched_cluster_name)
+
+    clusters_controller.addMedicine(matched_cluster._id, medicine._id)
+  })
 }

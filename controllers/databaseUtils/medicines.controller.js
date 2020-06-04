@@ -32,8 +32,6 @@ export const medicines_controller = {
     const fullname = data.name.split(',')
 
     return new SCHEMA({
-      _id: data.id,
-      // clusterId: findCluster()
       registrationNumber: data.registrationNumber,
       title: fullname[0],
       info: fullname[1],

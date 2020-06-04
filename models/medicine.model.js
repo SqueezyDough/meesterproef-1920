@@ -4,9 +4,6 @@ const Schema = mongoose.Schema
 mongoose.set("useCreateIndex", true)
 
 const med_schema = new Schema({
-  _id: {
-    type: Number
-  },
   registrationNumber: {
     type: String,
     index: true,
@@ -28,7 +25,7 @@ const med_schema = new Schema({
   },
   cluster: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:'Medicine'
+    ref:'Cluster'
   }
 })
 
