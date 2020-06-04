@@ -127,7 +127,7 @@ async function searchMedicine(suspected_code) {
   const form_data = new FormData()
   form_data.append('suspected_code', suspected_code)
 
-  const suspected_medicines = await fetch('/algolia-search', {
+  const suspected_medicines = await fetch('/tesseract-search', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

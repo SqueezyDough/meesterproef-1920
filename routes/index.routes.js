@@ -7,7 +7,8 @@ const ROUTER = express.Router()
 ROUTER.get('/', base.home)
 ROUTER.get('/scan-medicine', base.scanner)
 ROUTER.post('/scan-medicine', base.scannerPost)
-ROUTER.post('/algolia-search', algolia.search)
+ROUTER.post('/tesseract-search', algolia.tesseractSearch)
+ROUTER.post('/overview-search', algolia.overviewSearch, overview.index)
 ROUTER.get('/overview', overview.index)
 
 module.exports = ROUTER
