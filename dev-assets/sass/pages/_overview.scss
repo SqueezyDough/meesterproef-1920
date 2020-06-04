@@ -1,23 +1,70 @@
-.overview__cards {
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 4rem;
+.overview {
+  &__cards {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 4rem;
 
-  @supports (display: grid) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    grid-gap: 1rem;
-  }
-
-  &__loading-state {
-    justify-self: center;
-  }
-
-  &.-scanner {
     @supports (display: grid) {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
       grid-gap: 1rem;
+    }
+
+    &__loading-state {
+      justify-self: center;
+    }
+
+    &.-scanner {
+      @supports (display: grid) {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 1rem;
+      }
+    }
+  }
+
+  &__search {
+    margin-bottom: 2.5rem;
+    padding: 1.25rem;
+    border-radius: var(--normal-border-radius);
+    background: var(--white);
+    box-shadow: 5px 5px 5px rgba(136,136,136,.5);
+
+    h1 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    form {
+      fieldset {
+        padding: 0;
+        margin-bottom: 0.9375rem;
+        border: 0;
+
+        label {
+          span {
+            display: block;
+            margin-bottom: 0.3125rem;
+          }
+        }
+
+        input {
+          padding: 0.625rem;
+          width: 100%;
+        }
+
+        input[type=submit] {
+          background: var(--light-grey);
+          border: 0;
+          border-radius: var(--normal-border-radius);
+          transition: 250ms ease-in-out;
+
+          &:hover {
+            background: var(--secondary-color);
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
 }
