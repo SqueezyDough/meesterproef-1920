@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose'
 import * as model from '../../models/medicine.model'
+import * as data from '../data.controller'
 
 const SCHEMA = mongoose.model('Medicine', model.meds_schema)
 
@@ -31,8 +32,6 @@ export const medicines_controller = {
     const fullname = data.name.split(',')
 
     return new SCHEMA({
-      _id: data.id,
-      // clusterId: findCluster()
       registrationNumber: data.registrationNumber,
       title: fullname[0],
       info: fullname[1],
@@ -45,5 +44,10 @@ export const medicines_controller = {
     medicine.save(err => {
       err ? console.log(err) : console.log(`saved: ${medicine}`)
     })
+  },
+
+  reset: async () => {
+    data.dropCollection('medicines')
+    await data.fetchNewData()
   }
 }

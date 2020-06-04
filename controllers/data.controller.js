@@ -3,32 +3,17 @@ import * as api from './api.controller'
 import { medicines_controller } from './databaseUtils/medicines.controller'
 import { clusters_controller } from './databaseUtils/clusters.controller'
 
-exports.resetMedicines = async () => {
-  dropCollection('medicines')
-  await fetchNewData()
-}
+exports.resetData = async (req, res) => {
+  await medicines_controller.reset()
+  await clusters_controller.reset(medicines)
 
-exports.resetClusters = async medicines => {
-  await dropCollection('clusters')
-
-  let unique_medicine_names = new Set()
-
-  await medicines.forEach(async medicine => {
-    const preferredIdentifier = await clusters_controller.rules(medicine.title)
-
-    unique_medicine_names.add(preferredIdentifier)   
-  })
-
-  unique_medicine_names.forEach(uniqueName => {
-    const cluster = clusters_controller.create(uniqueName)
-    clusters_controller.save(cluster)
-  })
+  res.send('data reset')
 }
 
 // Fetch from API
-const fetchNewData = async () => {
+exports.fetchNewData = async () => {
   const URL = 'https://hva-cmd-meesterproef-ai.now.sh/medicines'
-  const medicines = await api.FetchData(URL, [0, 200])
+  const medicines = await api.FetchData(URL)
 
   medicines.forEach(medicine => {
     const scheme_medicine = medicines_controller.create(medicine)
@@ -36,7 +21,7 @@ const fetchNewData = async () => {
   })
 }
 
-const dropCollection = (collection) => {
+exports.dropCollection = (collection) => {
   const db = mongoose.default.connections[0].collections
 
   db[collection].drop( function(err) {
