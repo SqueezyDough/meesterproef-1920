@@ -31,9 +31,29 @@
   }
 }
 
-.tesseract-output-container {
-  width: 100%;
-  margin-top: 3rem;
-  padding: 3rem 1rem;
-  background-color: var(--white);
+.tesseract {
+  &__output-container {
+    width: 100%;
+    margin: 3rem 0;
+    padding-top: 1.25rem;
+    background-color: var(--white);
+    box-shadow: 0 6px 8px 0 var(--light-grey);
+  }
+
+  &__output-incorrect {
+    padding: 1.25rem;
+    background: var(--light-grey);
+    transition: 250ms ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background: var(--error-color);
+
+      color: #fff;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
 }

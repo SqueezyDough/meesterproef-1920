@@ -8,10 +8,24 @@
     </svg>
   </section>
 
-  <h1 class="default-header">Alle medicijnen</h1>
+  <section class="overview__search">
+    <h1>Medicijn zoeken</h1>
+    <form action="/overview-search" method="POST">
+      <fieldset>
+        <label>
+          <span>Registratie nummer of medicijn naam</span>
+          <span class="error">{{ error }}</span>
+          <input type="text" name="multi_search" placeholder="Bijv. RVG 06566 of Strepsils">
+        </label>
+      </fieldset>
+      <fieldset>
+        <input type="submit" value="Zoeken">
+      </fieldset>
+    </form>
+  </section>
 
   <section class="overview__cards">
-    {{#each trained_data}}
+    {{#each medicines}}
       {{> 'overview/_card'}}
     {{/each}}
   </section>
