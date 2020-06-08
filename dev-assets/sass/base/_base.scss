@@ -21,13 +21,6 @@ body {
   font-family: AvenirNext, sans-serif;
 }
 
-main {
-  flex: 1 1 auto;
-  width: 100%;
-  max-width: 1110px;
-  align-self: center;
-}
-
 footer {
   flex: 0 1 auto;
 }
@@ -46,9 +39,8 @@ ul {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -10;
   width: 100vw;
-  height: 100vh;
+  z-index: -10;
 
   &:before {
     content: '';
@@ -56,17 +48,15 @@ ul {
     top: 0;
     left: 0;
     display: block;
-    width: 100vw;
-    height: 100vh;
   }
 
   svg {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
   }
 
   &__rectangle {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
   }
 
@@ -85,6 +75,16 @@ ul {
   background-color: var(--white);
   color: var(--primary-color);
   font-family: AvenirNextBold;
+}
+
+.page-inner {  
+  max-width: 80rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .error {

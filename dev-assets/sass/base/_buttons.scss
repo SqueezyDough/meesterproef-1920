@@ -1,0 +1,91 @@
+.btn {
+  position: relative;
+  padding: 1rem 2rem;
+  border: 2px solid var(--primary-color);
+  font-family: AvenirNextBold;
+  background-color: var(--white);
+
+  &::before, &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    background: #fff;
+    transition: all .2s;
+  }
+
+  &::before {
+    top: -0.3rem;
+    bottom: -0.3rem;
+    left: 1rem;
+    right: 1rem;
+  }
+  
+  &::after{
+    left: -0.3rem;
+    right: -0.3rem;
+    top: 1rem;    
+    bottom: 1rem;
+  } 
+
+  &:hover, &:focus {
+    border-width: 3px;
+    border-radius: 3px;
+    border-color: var(--primary-color);
+    
+    &::before {
+      left: 2rem;
+      right: 2rem;
+    }
+    
+    &::after{
+      top: 2rem;
+      bottom: 2rem;
+    }
+ 
+    span {
+      color: var(--primary-color);
+    }
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+    text-transform: uppercase;
+    transition: all .2s;
+  }
+}
+
+.-primary {
+  @extend .btn;
+
+  border-color: var(--primary-color);
+
+  span {
+    color: var(--secondary-color);
+  }
+}
+
+.-secondary {
+  @extend .btn;
+
+  border-color: var(--grey);
+
+  &::before {
+    top: -0.3em;
+    bottom: -0.3em;
+    left: .7rem;
+    right: .7rem;
+  }
+  
+  &::after{
+    left: -0.3em;
+    right: -0.3em;
+    top: .7rem;
+    bottom: .7rem;
+  } 
+
+  span {
+    color: var(--grey);
+  }
+}
+

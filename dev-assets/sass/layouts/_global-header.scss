@@ -1,0 +1,8 @@
+.global-header {
+  width: 100%;
+  background-color: var(--white);
+
+  &__logo {
+    width: 7rem;
+  }
+}

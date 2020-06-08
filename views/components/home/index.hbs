@@ -1,34 +1,88 @@
 <main>
-  {{> 'base/_svg-background'}}
-  <article class="introduction">
-    <div>
-      <header class="introduction__header">
-        <h1>Medicijn scanner</h1>
-        <p>Direct de juiste informatie over uw medicijn(en)</p>
-      </header>
-      <section class="introduction__cta">
-        <h2>Medicijn scannen:</h2>
-        <p>
-          Door het scannen van het registratie nummer of de naam van uw medicijn kan u snel informatie over het medicijn ophalen.
-        </p>
-        <h2>
-          Medicijn zoeken:
-        </h2>
-        <p>
-          Toch liever uw medicijn opzoeken zonder de camera van uw laptop of telefoon te gebruiken?, zoek dan uw medicijn door het invullen van registratie nummer
-          of naam van uw medicijn.
-        </p>
+  <header class="cta">
+    {{> 'base/_svg-background'}}
+    
+    <div class="page-inner">
+      <nav class="cta__nav">
         <ul>
-          <li>
-            <a href="/scan-medicine">Medicijn scannen</a>
-          </li>
-          <li>
-            <a href="/overview">Medicijn zoeken</a>
-          </li>
-        </ul>
-      </section>
+        <li>
+          <a class="btn -primary" href="/scan-medicine"><span>Medicijn scannen</span></a>
+        </li>
+        <li>
+          <a class="btn -secondary" href="/overview"><span>Handmatig zoeken</span></a>
+        </li>
+       </ul>
+      </nav>   
     </div>
-  </article>
+   
+  </header>
+
+  <div class="page-inner">
+    <article class="introduction">
+      <section class="introduction__scanner">
+        <h1>Scan een medicijn om er direct informatie over te krijgen</h1>
+
+        <div>
+          <p>
+            Via de handige scanner kunt u direct informatie opvragen over uw medicijn.
+          </p>
+
+          <p>
+            Scan het registratienummer of de naam van het medicijn en u krijgt direct resultaat.
+          </p>
+        </div>
+
+        <img src="./visuals/images/dummy-images/scan.png">
+      </section> 
+
+      <section class="introduction__name">
+        <h2>Of voer de naam van het medicijn of registratienummer in en krijg direct resultaat</h2>
+
+        <div>
+          <p>
+            Wilt of kan u geen gebruik maken van de camera van uw laptop of smartphone? 
+          </p>
+
+          <p>
+            Vul dan eenvoudig de naam of registratienummer in en ontvang direct resultaat via onze slimme zoekmachine.
+          </p>
+        </div>
+
+        <img src="./visuals/images/dummy-images/name.png">
+      </section>
+
+      <section class="introduction__list">
+        <h2>Draag uw medicijnen altijd op zak</h2>
+
+        <div>
+          <p>U kunt uw gescande medicijnen altijd weer terugvinden, ook wanneer u offline of in het buitenland bent.</p>
+        </div>   
+
+        <img src="./visuals/images/dummy-images/pocket.png">
+      </section>
+    </article>
+  </div>
+
+  <div class="page-inner">
+     <h2>Vraag direct informatie op over uw medicijn</h2>
+  </div>
+
+  <div class="cta">
+    {{> 'base/_svg-background'}}
+
+    <div class="page-inner">
+      <nav class="cta__nav">
+        <ul>
+        <li>
+          <a class="btn -primary" href="/scan-medicine"><span>Medicijn scannen</span></a>
+        </li>
+        <li>
+          <a class="btn -secondary" href="/overview"><span>Handmatig zoeken</span></a>
+        </li>
+       </ul>
+      </nav>   
+    </div>
+  </div>
 </main>
 
 {{> 'base/_footer' }}
