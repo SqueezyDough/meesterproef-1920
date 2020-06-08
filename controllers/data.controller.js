@@ -50,7 +50,6 @@ exports.databaseSearch = async (req, res) => {
   
   Promise.all(most_likely_clusters)
     .then(clusters => {
-      console.log(clusters[0].cluster)
       res.send(clusters)
     })
 }
