@@ -13,7 +13,7 @@ if (navigator.mediaDevices.getUserMedia) {
         audio: false,
         video: {
           width: { ideal: 480},
-          height: { ideal: 360},
+          height: { ideal: 175},
           facingMode: 'environment'
         }
       })
@@ -78,42 +78,11 @@ async function recognizeRVG(tesseract_worker) {
     })
 
     // Check if RVG has been found inside word list
-    if(code_prefix_index === -1) throw 'RVG/RVH not detected inside words list'
-
-    const detected_code = result.data.words[code_prefix_index +1]
-
-    const suspected_medicines_container = document.querySelector('.overview__cards')
-    appendTesseractOutput(detected_code)
-    appendLoadingState(suspected_medicines_container)
-
-    if(detected_code.choices.length > 1) {
-      // TODO SEARCH API FOR ALL THE CHOICES IF THERE ARE ANY
-      const ordered_coices = detected_code.choices.sort((a, b) => {
-        return b.confidence - a.confidence
-      })
+    //if(code_prefix_index === -1) throw 'RVG/RVH not detected inside words list'
+    if(code_prefix_index === -1) {
+      nameDetectionHandler(result)
     } else {
-      const suspected_code = {
-        code: detected_code.text,
-        confidence: detected_code.confidence
-      }
-
-      const suspected_medicines = await searchMedicine(suspected_code)
-
-      const medicine_cards = await fetch('/scan-medicine', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(suspected_medicines)
-      })
-        .then(response => response.json())
-
-      removeLoadingState(suspected_medicines_container)
-      medicine_cards.forEach(card => {
-        suspected_medicines_container.insertAdjacentHTML('beforeend', card)
-      })
-
-      await tesseract_worker.terminate()
+      codeDetectionHandler(result, code_prefix_index, tesseract_worker)
     }
   }
   catch(error) {
@@ -139,12 +108,104 @@ async function searchMedicine(suspected_code) {
   return suspected_medicines
 }
 
-function tesseractReset(tesseract_output_container, overview_cards_container) {
-  tesseract_output_container.innerHTML = ''
-  overview_cards_container.innerHTML = ''
+function tesseractReset(tesseract_output_container = undefined, overview_cards_container = undefined) {
+  if(tesseract_output_container !== undefined && overview_cards_container !== undefined) {
+    tesseract_output_container.innerHTML = ''
+    overview_cards_container.innerHTML = ''
+  }
 
   const tesseract_worker = Tesseract.createWorker({
   })
 
   recognizeRVG(tesseract_worker)
+}
+
+function nameDetectionHandler(result) {
+  const confident_words = result.data.words.filter(word => {
+    if(word.confidence >= 85) {
+      const cleaned_string = word.text.replace(/[^\/\-a-zA-Z0-9 ]/g, "")
+
+      if(cleaned_string !== '' && cleaned_string.length > 3) {
+        return word
+      }
+    }
+  })
+
+  if(confident_words.length === 0) throw 'Not able to detect words above 85% confidence'
+
+  const cleaned_confident_words = confident_words.map(words => {
+    return {text: words.text, confidence: words.confidence}
+  })
+
+  const response = fetch('/database-search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(cleaned_confident_words)
+  })
+    .then(response => {
+      return response.json()
+    })
+    .then(json => {
+      const highest_rated_cluster = getHighestRatedCluser(json)
+      if(!highest_rated_cluster.rating >= 0.85) throw 'No high rated cluster has been found'
+      if(highest_rated_cluster.rating >= 0.85) {
+      } else {
+        throw 'No high rated cluster found'
+      }
+    })
+    .catch(error => {
+      console.log(error)
+      tesseractReset()
+    })
+}
+
+async function codeDetectionHandler(result, code_prefix_index, tesseract_worker) {
+  const detected_code = result.data.words[code_prefix_index +1]
+
+  const suspected_medicines_container = document.querySelector('.overview__cards')
+  appendTesseractOutput(detected_code)
+  appendLoadingState(suspected_medicines_container)
+
+  if(detected_code.choices.length > 1) {
+    // TODO SEARCH API FOR ALL THE CHOICES IF THERE ARE ANY
+    const ordered_coices = detected_code.choices.sort((a, b) => {
+      return b.confidence - a.confidence
+    })
+  } else { 
+    const suspected_code = {
+      code: detected_code.text,
+      confidence: detected_code.confidence
+    }
+
+    const suspected_medicines = await searchMedicine(suspected_code)
+
+    const medicine_cards = await fetch('/scan-medicine', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(suspected_medicines)
+    })
+      .then(response => response.json())
+
+    removeLoadingState(suspected_medicines_container)
+    medicine_cards.forEach(card => {
+      suspected_medicines_container.insertAdjacentHTML('beforeend', card)
+    })
+
+    await tesseract_worker.terminate()
+  }
+}
+
+function getHighestRatedCluser(clusters) {
+  console.log(clusters)
+  const sorted_clusters = clusters.sort((a, b) => {
+    if(b.rating > a.rating) return 1
+    if(a.rating > b.rating) return -1
+    return 0
+  })
+
+  return sorted_clusters[0]
 }
