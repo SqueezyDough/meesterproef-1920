@@ -20,7 +20,7 @@ In this course we will bundle all our newly acquired superpowers to create a web
 ------
 
 ## Rubric
-Waffs 
+### Waffs 
 	- Nette code
 	- Correct gescoped
 	- Actor diagram?
@@ -29,22 +29,22 @@ Waffs
 	- Routes
 	- Feedback (Zelf maken)
 
-CSS
+### CSS
 	- CSS scope
 	- Cascade, inheritance
 
-Browser tech
+### Browser tech
 	- Accessibility
 	- PE toepassen
 	- Feature detection
 
-Progressive web apps
+### Progressive web apps
 	- Service worker
 	- CRP optimalisatie
 	- Offline 
 	- Performant data
 	
-Real Time
+### Real Time
 	- Real time scanner
 	- Instant results
 	- DLC
@@ -52,7 +52,7 @@ Real Time
 	- Single source of truth
 	- Adaptive data (ML)
 
-Web deseign
+### Web deseign
 	- User scenario
 	- Eind conclusie? 
 
