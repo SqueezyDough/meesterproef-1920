@@ -19,6 +19,45 @@ In this course we will bundle all our newly acquired superpowers to create a web
 
 ------
 
+## Rubric
+Waffs 
+	- Nette code
+	- Correct gescoped
+	- Actor diagram?
+	- Interaction diagram?
+	- Data ophalen uit een API
+	- Routes
+	- Feedback (Zelf maken)
+
+CSS
+	- CSS scope
+	- Cascade, inheritance
+
+Browser tech
+	- Accessibility
+	- PE toepassen
+	- Feature detection
+
+Progressive web apps
+	- Service worker
+	- CRP optimalisatie
+	- Offline 
+	- Performant data
+	
+Real Time
+	- Real time scanner
+	- Instant results
+	- DLC
+	- Persistant data
+	- Single source of truth
+	- Adaptive data (ML)
+
+Web deseign
+	- User scenario
+	- Eind conclusie? 
+
+
+
 
 <a name="api">
 
