@@ -41,6 +41,12 @@ function getBase64Image() {
   return canvas.toDataURL('image/jpeg')
 }
 
+function appendMedicineCards(medicine_cards, suspected_medicines_container) {
+  medicine_cards.forEach(card => {
+    suspected_medicines_container.insertAdjacentHTML('beforeend', card)
+  })
+}
+
 function appendTesseractOutput(output) {
   const tesseract_output_container = document.getElementById('tesseract_output_container')
   tesseract_output_container.innerHTML = `<p>Wij hebben de code: ${output.text} met een zekerheid van ${output.confidence.toFixed(2)} gescanned</p>`
@@ -74,13 +80,13 @@ async function recognizeRVG(tesseract_worker) {
     if(result.data.text === '') throw 'No words detected'
 
     const code_prefix_index = result.data.words.findIndex(word => {
-      return word.text.toLowerCase() === 'rvg' || word.text.toLowerCase === 'rvh' || word.text.toLowerCase === 'eu'
+      return word.text.toLowerCase() === 'rvg' || word.text.toLowerCase() === 'rvh' || word.text.toLowerCase() === 'eu'
     })
-
+    
     // Check if RVG has been found inside word list
     //if(code_prefix_index === -1) throw 'RVG/RVH not detected inside words list'
     if(code_prefix_index === -1) {
-      nameDetectionHandler(result)
+      nameDetectionHandler(result, tesseract_worker)
     } else {
       codeDetectionHandler(result, code_prefix_index, tesseract_worker)
     }
@@ -120,7 +126,7 @@ function tesseractReset(tesseract_output_container = undefined, overview_cards_c
   recognizeRVG(tesseract_worker)
 }
 
-function nameDetectionHandler(result) {
+function nameDetectionHandler(result, tesseract_worker) {
   const confident_words = result.data.words.filter(word => {
     if(word.confidence >= 85) {
       const cleaned_string = word.text.replace(/[^\/\-a-zA-Z0-9 ]/g, "")
@@ -137,6 +143,11 @@ function nameDetectionHandler(result) {
     return {text: words.text, confidence: words.confidence}
   })
 
+  const suspected_medicines_container = document.querySelector('.overview__cards')
+  // TODO append correct tesseract output
+  //appendTesseractOutput(detected_code)
+  appendLoadingState(suspected_medicines_container)
+
   const response = fetch('/database-search', {
     method: 'POST',
     headers: {
@@ -147,13 +158,10 @@ function nameDetectionHandler(result) {
     .then(response => {
       return response.json()
     })
-    .then(json => {
-      const highest_rated_cluster = getHighestRatedCluser(json)
-      if(!highest_rated_cluster.rating >= 0.85) throw 'No high rated cluster has been found'
-      if(highest_rated_cluster.rating >= 0.85) {
-      } else {
-        throw 'No high rated cluster found'
-      }
+    .then(async suspected_medicines => {
+      const medicine_cards = await retrieveMedicineCards(suspected_medicines, tesseract_worker)
+      removeLoadingState(suspected_medicines_container)
+      appendMedicineCards(medicine_cards, suspected_medicines_container)
     })
     .catch(error => {
       console.log(error)
@@ -178,34 +186,25 @@ async function codeDetectionHandler(result, code_prefix_index, tesseract_worker)
       code: detected_code.text,
       confidence: detected_code.confidence
     }
-
+    console.log(suspected_code)
     const suspected_medicines = await searchMedicine(suspected_code)
-
-    const medicine_cards = await fetch('/scan-medicine', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(suspected_medicines)
-    })
-      .then(response => response.json())
+    const medicine_cards = await retrieveMedicineCards(suspected_medicines, tesseract_worker)
 
     removeLoadingState(suspected_medicines_container)
-    medicine_cards.forEach(card => {
-      suspected_medicines_container.insertAdjacentHTML('beforeend', card)
-    })
-
-    await tesseract_worker.terminate()
+    appendMedicineCards(medicine_cards, suspected_medicines_container)
   }
 }
 
-function getHighestRatedCluser(clusters) {
-  console.log(clusters)
-  const sorted_clusters = clusters.sort((a, b) => {
-    if(b.rating > a.rating) return 1
-    if(a.rating > b.rating) return -1
-    return 0
+async function retrieveMedicineCards(suspected_medicines, tesseract_worker) {
+  const medicine_cards = await fetch('/scan-medicine', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(suspected_medicines)
   })
+    .then(response => response.json())
 
-  return sorted_clusters[0]
+  await tesseract_worker.terminate()
+  return medicine_cards
 }

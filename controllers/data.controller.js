@@ -33,15 +33,23 @@ exports.databaseSearch = async (req, res) => {
 
     return matches.bestMatch
   })
-  
+
   const most_likely_clusters = await all_best_matches.map(async match => {
     const most_likely_cluster = await clusters_controller.findByIdentifier(match.target)
     return { rating: match.rating, cluster: most_likely_cluster}
   })
-  
+
   Promise.all(most_likely_clusters)
-    .then(clusters => {
-      res.send(clusters)
+    .then(async clusters => {
+      const highest_rated_cluster = await clusters.reduce(function(prev, current) {
+        return (prev.rating > current.rating) ? prev : current
+      })
+
+      const cluster_medicines = await clusters_controller.getMedicinesFromCluster(highest_rated_cluster.cluster)
+      Promise.all(cluster_medicines)
+        .then(medicines => {
+          res.send(medicines)
+        })
     })
 }
 
