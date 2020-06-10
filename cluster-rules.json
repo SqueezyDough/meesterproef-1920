@@ -15,5 +15,30 @@
     "subscriptions": [
       "Paracetamol"
     ]
+  }, {
+    "preferredIdentifier": "Ibuprofen",
+    "subscriptions": [
+      "Ibuprofen"
+    ]
+  }, {
+    "preferredIdentifier": "Hoestdrank",
+    "subscriptions": [
+      "Hoestdrank"
+    ]
+  }, {
+    "preferredIdentifier": "Hoesttabletten",
+    "subscriptions": [
+      "Hoesttabletten"
+    ]
+  }, {
+    "preferredIdentifier": "Xylometazoline",
+    "subscriptions": [
+      "Xylometazoline"
+    ]
+  }, {
+    "preferredIdentifier": "Loperamide",
+    "subscriptions": [
+      "Loperamide"
+    ]
   }
 ] 
