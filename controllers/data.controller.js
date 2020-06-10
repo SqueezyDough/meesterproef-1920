@@ -5,21 +5,32 @@ import { clusters_controller } from './databaseUtils/clusters.controller'
 import string_similarity from 'string-similarity'
 
 exports.resetData = async (req, res) => {
-  await medicines_controller.reset()
-  await clusters_controller.reset(medicines)
+  // KEEP UNCOMMENTED ON PROD
+
+  // await medicines_controller.reset()
+  const all_medicines = await medicines_controller.all()
+  await clusters_controller.reset(all_medicines)
+
+
+
+  // const single_cluster = await clusters_controller.findByIdentifier('strepsils')
+
+  // console.log(single_cluster)
+
+  // single_cluster.medicines.forEach(async id => {
+  //   const medicine = await medicines_controller.findById(id)
+
+  //   console.log('contains: ', medicine)
+  // })
+
+  // single_cluster.similarClusters.forEach(async id => {
+  //   const cluster = await clusters_controller.findById(id)
+
+  //   console.log('similar cluster ->', cluster)
+  // })
+
 
   res.send('data reset')
-}
-
-// Fetch from API
-exports.fetchNewData = async () => {
-  const URL = 'https://hva-cmd-meesterproef-ai.now.sh/medicines'
-  const medicines = await api.FetchData(URL)
-
-  medicines.forEach(medicine => {
-    const scheme_medicine = medicines_controller.create(medicine)
-    medicines_controller.save(scheme_medicine)
-  })
 }
 
 exports.dropCollection = (collection) => {
@@ -32,9 +43,7 @@ exports.dropCollection = (collection) => {
 
 exports.databaseSearch = async (req, res) => {
   const all_clusters = await clusters_controller.all()
-  const all_cluster_strings = all_clusters.map(cluster => {
-    return cluster.identifier
-  })
+  const all_cluster_strings = all_clusters.map(cluster => cluster.identifier)
 
   const all_best_matches = await req.body.map(entry => {
     const {text, confidence} = entry
@@ -52,4 +61,15 @@ exports.databaseSearch = async (req, res) => {
     .then(clusters => {
       res.send(clusters)
     })
+}
+
+// Fetch from API
+exports.fetchNewData = async () => {
+  const URL = 'https://hva-cmd-meesterproef-ai.now.sh/medicines'
+  const medicines = await api.FetchData(URL)
+
+  medicines.forEach(medicine => {
+    const scheme_medicine = medicines_controller.create(medicine)
+    medicines_controller.save(scheme_medicine)
+  })
 }

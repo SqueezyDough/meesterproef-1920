@@ -1,7 +1,7 @@
 .btn {
   position: relative;
   padding: 1rem 2rem;
-  border: 2px solid var(--primary-color);
+  border: 3px solid var(--primary-color);
   font-family: AvenirNextBold;
   background-color: var(--white);
 
@@ -28,7 +28,6 @@
   } 
 
   &:hover, &:focus {
-    border-width: 3px;
     border-radius: 3px;
     border-color: var(--primary-color);
     
