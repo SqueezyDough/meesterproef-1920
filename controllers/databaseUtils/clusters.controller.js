@@ -137,17 +137,12 @@ export const clusters_controller = {
 }
 
 async function addMedicineToCluster(medicine, all_clusters) {
-  // get prefferred title for medicine
+  // get preferred title for medicine
   const preferredIdentifier = await clusters_controller.rules(medicine.title)
 
   const matched_cluster = await all_clusters.filter(cluster => {
     return cluster.identifier === preferredIdentifier
   })[0]
-
-  if (preferredIdentifier == 'strepsils') {
-    console.log('med', medicine)
-    console.log('m', matched_cluster)
-  }
   
   // save medicine to best match
   await clusters_controller.addMedicine(matched_cluster._id, medicine._id)

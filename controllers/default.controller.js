@@ -7,9 +7,7 @@ exports.home = (req, res) => {
 }
 
 exports.scanner = async (req, res) => {
-  res.render('components/base/scanner', {
-
-  })
+  res.render('components/base/scanner')
 }
 
 exports.scannerPost = async (req, res) => {

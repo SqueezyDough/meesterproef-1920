@@ -72,6 +72,21 @@ ul {
   margin: 0 auto;
 }
 
+.page-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+
+  h1 {
+    margin: 0;
+    padding: 1.5rem 12rem;
+    background-color: var(--white);
+    color: var(--primary-color);
+    font-size: 3rem;
+  }
+}
+
 .text-center {
   text-align: center;
 }
