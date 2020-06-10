@@ -6,29 +6,11 @@ import string_similarity from 'string-similarity'
 
 exports.resetData = async (req, res) => {
   // KEEP UNCOMMENTED ON PROD
-
+  // THIS FUNCTION WILL DROP ALL CLUSTERS ADN POPULATE THEM AGAIN
+  
   // await medicines_controller.reset()
-  const all_medicines = await medicines_controller.all()
-  await clusters_controller.reset(all_medicines)
-
-
-
-  // const single_cluster = await clusters_controller.findByIdentifier('strepsils')
-
-  // console.log(single_cluster)
-
-  // single_cluster.medicines.forEach(async id => {
-  //   const medicine = await medicines_controller.findById(id)
-
-  //   console.log('contains: ', medicine)
-  // })
-
-  // single_cluster.similarClusters.forEach(async id => {
-  //   const cluster = await clusters_controller.findById(id)
-
-  //   console.log('similar cluster ->', cluster)
-  // })
-
+  // const all_medicines = await medicines_controller.all()
+  // await clusters_controller.reset(all_medicines)
 
   res.send('data reset')
 }
