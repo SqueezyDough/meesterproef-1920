@@ -21,6 +21,10 @@ body {
   font-family: AvenirNext, sans-serif;
 }
 
+main {
+  flex: 1 1 auto;
+}
+
 footer {
   flex: 0 1 auto;
 }
@@ -39,16 +43,8 @@ ul {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   z-index: -10;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-  }
 
   svg {
     width: 100%;
@@ -56,28 +52,21 @@ ul {
   }
 
   &__rectangle {
-    width: 100%;
-    height: 100vh;
-  }
-
-  &.-as-header {
-    max-height: 32vh;
-
-    &:before, svg {
-      max-height: 32vh;
-    }
+    width: 100vw;
+    height: 100%;
   }
 }
 
-.default-header {
-  padding: 2rem 1rem;
-  margin: 3rem 0;
-  background-color: var(--white);
-  color: var(--primary-color);
-  font-family: AvenirNextBold;
-}
+// TODO check if this needs to be removed
+//.default-header {
+  //padding: 2rem 1rem;
+  //margin: 3rem 0;
+  //background-color: var(--white);
+  //color: var(--primary-color);
+  //font-family: AvenirNextBold;
+//}
 
-.page-inner {  
+.page-inner {
   max-width: 80rem;
   padding: 0 1rem;
   margin: 0 auto;

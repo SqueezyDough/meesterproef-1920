@@ -1,13 +1,18 @@
 <main>
-  <section class="svg-background -as-header">
-    <svg>
-      <pattern id="circle-pattern" class="svg-background__pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
-      <circle id="pattern-circle" cx="3" cy="1" r="1" fill= "#888888" />
-      </pattern>
-      <rect class="svg-background__rectangle" x="0" y="0" fill="url(#circle-pattern)" />
-    </svg>
+  <section class="cta _small">
+    {{> 'base/_svg-background'}}
+    <div class="page-inner">
+      <div class="cta__content-container">
+        <div class="cta__content">
+          <h1>
+            Scan de naam of registratienummer van het medicijn
+          </h1>
+        </div>
+      </div>
+    </div>
   </section>
   {{> 'base/_scanner'}}
+  <section class="overview__cards"></section>
 </main>
 
 {{> 'base/_footer'}}
