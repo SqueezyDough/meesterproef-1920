@@ -15,10 +15,14 @@ exports.scanner = async (req, res) => {
 exports.scannerPost = async (req, res) => {
   const partials = [],
     card_partial = compile(fs.readFileSync(path.resolve(__dirname, "../views/components/overview/partials/_card.hbs"), 'utf8'))
-
-  req.body.forEach(medicine => {
-    partials.push(card_partial(medicine))
-  })
-
+  
+  if(req.body.length > 1) {
+    req.body.forEach(medicine => {
+      partials.push(card_partial(medicine))
+    })
+  } else {
+    partials.push(card_partial(req.body))
+  }
+  
   res.send(partials)
 }

@@ -127,12 +127,16 @@ function tesseractReset(tesseract_output_container = undefined, overview_cards_c
 }
 
 function nameDetectionHandler(result, tesseract_worker) {
+  const additional_words_array = []
   const confident_words = result.data.words.filter(word => {
-    if(word.confidence >= 85) {
-      const cleaned_string = word.text.replace(/[^\/\-a-zA-Z0-9 ]/g, "")
-
-      if(cleaned_string !== '' && cleaned_string.length > 3) {
+    const cleaned_string = word.text.replace(/[^\/\-a-zA-Z0-9 ]/g, "")
+    if(cleaned_string !== '' && cleaned_string.length > 3) {
+      if(word.confidence >= 85) {
         return word
+      } else {
+        if(cleaned_string !== '' && cleaned_string.length > 3) {
+          additional_words_array.push(cleaned_string)
+        }
       }
     }
   })
@@ -153,7 +157,7 @@ function nameDetectionHandler(result, tesseract_worker) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(cleaned_confident_words)
+    body: JSON.stringify({confident_words: cleaned_confident_words, additional_words: additional_words_array})
   })
     .then(response => {
       return response.json()
@@ -186,7 +190,6 @@ async function codeDetectionHandler(result, code_prefix_index, tesseract_worker)
       code: detected_code.text,
       confidence: detected_code.confidence
     }
-    console.log(suspected_code)
     const suspected_medicines = await searchMedicine(suspected_code)
     const medicine_cards = await retrieveMedicineCards(suspected_medicines, tesseract_worker)
 
