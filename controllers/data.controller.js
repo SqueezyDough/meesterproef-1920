@@ -27,7 +27,7 @@ exports.databaseSearch = async (req, res) => {
   const all_clusters = await clusters_controller.all()
   const all_cluster_strings = all_clusters.map(cluster => cluster.identifier)
 
-  const all_best_matches = await req.body.map(entry => {
+  const all_best_matches = await req.body.confident_words.map(entry => {
     const {text, confidence} = entry
     const matches = string_similarity.findBestMatch(text, all_cluster_strings)
 
@@ -48,7 +48,12 @@ exports.databaseSearch = async (req, res) => {
       const cluster_medicines = await clusters_controller.getMedicinesFromCluster(highest_rated_cluster.cluster)
       Promise.all(cluster_medicines)
         .then(medicines => {
-          res.send(medicines)
+          if(req.body.additional_words.length) {
+            const best_matching_medicine = additionalWordsFilter(medicines, req.body.additional_words)
+            res.send(best_matching_medicine)
+          } else {
+            res.send(medicines)
+          }
         })
     })
 }
@@ -62,4 +67,22 @@ exports.fetchNewData = async () => {
     const scheme_medicine = medicines_controller.create(medicine)
     medicines_controller.save(scheme_medicine)
   })
+}
+
+function additionalWordsFilter(medicines, additional_words) {
+  const medicines_and_matched_rating = medicines.map(medicine => {
+    if(additional_words.length > 1) {
+      const matches = string_similarity.findBestMatch(medicine.title, additional_words)
+      return {medicine: medicine, match: matches.bestMatch}
+    } else {
+      const matches = string_similarity.compareTwoStrings(medicine.title, additional_words[0])
+      return {medicine: medicine, match: matches}
+    }
+  })
+
+  const highest_rated_medicine = medicines_and_matched_rating.reduce(function(prev, current) {
+    return (prev.match.rating > current.match.rating) ? prev : current
+  })
+
+  return highest_rated_medicine.medicine
 }
