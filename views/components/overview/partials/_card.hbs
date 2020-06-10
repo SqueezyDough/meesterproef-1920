@@ -1,33 +1,15 @@
 <article class="card">
   <header class="card__header">
-    <h1>{{title}}</h1>
-    <h2>{{info}}</h2>
+    <h1>{{name}}</h1>
     <small>{{registrationNumber}}</small>
   </header>
 
-  <details class="card__details">
-    <summary>Extra informatie</summary>
-
-    <div class="card__details__inner">
-      <section class="card__details__body">
-        {{#if activeIngredient}}
-          <h2>Actieve Ingredient(en)</h2>
-          <span>{{activeIngredient}}</span>
-
-          {{else}}
-          <span>Geen actieve ingrediënten gevonden</span>
-        {{/if}}
-      </section>
-
-      <footer class="card__details__footer">
-        <h2>Gevonden bijsluiter(s)</h2>
-        <ul class="PDF-list">
-          <li>
-            <h3>Bron: Ome Google</h3>
-            <a href="#" target="_blank">Download PDF</a>
-          </li>
-        </ul>
-      </footer>
-    </div>
-  </details>
+  <div class="card__details">
+     <h2>Actieve Ingredient(en)</h2>
+    {{#if activeIngredient}} 
+      <span>{{activeIngredient}}</span>
+      {{else}}
+      <span>Geen actieve ingrediënten gevonden</span>
+    {{/if}}
+  </div>
 </article>

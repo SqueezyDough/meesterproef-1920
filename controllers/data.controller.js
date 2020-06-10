@@ -5,9 +5,9 @@ import { clusters_controller } from './databaseUtils/clusters.controller'
 import string_similarity from 'string-similarity'
 
 exports.resetData = async (req, res) => {
-  // KEEP UNCOMMENTED ON PROD
+  // KEEP UNCOMMENTED UNLESS YOU KNOW WHAT YOU ARE DOING!
   // THIS FUNCTION WILL DROP ALL CLUSTERS ADN POPULATE THEM AGAIN
-  
+
   // await medicines_controller.reset()
   // const all_medicines = await medicines_controller.all()
   // await clusters_controller.reset(all_medicines)

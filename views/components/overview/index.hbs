@@ -1,33 +1,36 @@
 <main class="overview">
-  <section class="svg-background -as-header">
-    <svg>
-      <pattern id="circle-pattern" class="svg-background__pattern" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
-      <circle id="pattern-circle" cx="3" cy="1" r="1" fill= "#888888" />
-      </pattern>
-      <rect class="svg-background__rectangle" x="0" y="0" fill="url(#circle-pattern)" />
-    </svg>
+  <section class="cta">
+  {{> 'base/_svg-background'}}
+
+    <div class="page-inner page-header">
+      <h1>Medicijn zoeken</h1>
+    </div>
   </section>
 
-  <section class="overview__search">
-    <h1>Medicijn zoeken</h1>
-    <form action="/overview-search" method="POST">
-      <fieldset>
-        <label>
-          <span>Registratie nummer of medicijn naam</span>
-          <span class="error">{{ error }}</span>
-          <input type="text" name="multi_search" placeholder="Bijv. RVG 06566 of Strepsils">
-        </label>
-      </fieldset>
-      <fieldset>
-        <input type="submit" value="Zoeken">
-      </fieldset>
-    </form>
-  </section>
+  <div class="page-inner">
+    <section class="overview__search">
+      <form action="/overview-search" method="POST">
+        <fieldset>
+          <label>
+            <span>Zoek op registratie nummer of naam</span>
+            <span class="error">{{ error }}</span>
+            <input type="text" name="multi_search" placeholder="Bijv. RVG 06566 of Strepsils">
+          </label>
+        </fieldset>
+        <fieldset>
+          <button class="btn -default" type="submit"><span>Zoeken</span></button>
+        </fieldset>
+      </form>
+    </section>
 
-  <section class="overview__cards">
-    {{#each medicines}}
-      {{> 'overview/_card'}}
-    {{/each}}
-  </section>
+    <section class="overview__cards">
+      {{#if medicines}}
+        <h2>Gevonden resultaten</h2>
+      {{/if}}
+      {{#each medicines}}
+        {{> 'overview/_card'}}
+      {{/each}}
+    </section>
+  </div>
 </main>
 {{> 'base/_footer' }}
