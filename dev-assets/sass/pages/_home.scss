@@ -47,7 +47,9 @@
       }
 
       li {
-        margin-right: 3rem;
+        @media screen and (min-width: 60rem) {
+          margin-right: 3rem;
+        }
 
         a {
           display: block;
