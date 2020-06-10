@@ -37,6 +37,14 @@ export const clusters_controller = {
       .then(cluster => cluster)  
   },
 
+  getMedicinesFromCluster: cluster => {
+    return cluster.medicines.map(async id => await medicines_controller.findById(id)) 
+  },
+
+  getSimilarClusters: cluster => {
+    return cluster.similarClusters.map(async id => await clusters_controller.findById(id)) 
+  },
+
   bind: (source_id, target_id) => {
     try {
       console.log(`binding ${source_id} => ${target_id}`)
@@ -50,39 +58,22 @@ export const clusters_controller = {
     }   
   },
 
-  addMedicine: (cluster_id, medicine_id) => {
-    try {
-      console.log(`adding ${medicine_id} => ${cluster_id}`)
-      
-      SCHEMA.findOne({ _id: cluster_id }, (err, cluster) => {
-        cluster.medicines.push(medicine_id)
-        cluster.save();
+  addMedicine: (cluster_id, medicine_id) => { 
+    console.log(`adding ${medicine_id} => ${cluster_id}`)
+ 
+    SCHEMA.update(
+      { _id: cluster_id }, 
+      { $push: { medicines: medicine_id } },
+    )
+      .populate('Medicine')
+      .then((result) => {
+        console.log(result)
       })
-        .populate('Medicine')
-        .then((result) => {
-          console.log(result)
-        })
-    } catch(err) {
-      console.log(err)
-    }  
   },
 
   populateBind: id => {
       SCHEMA.findOne({ _id: id })
       .populate('Cluster')
-      .then((result) => {
-        console.log(result)
-      })
-      .catch((error) => {
-        console.log(error)
-    })
-  },
-
-  populateMedicines: id => {
-    console.log(`populate cluster: ${id}`)
-
-    SCHEMA.findOne({ _id: `${id}` })
-      .populate('Medicine')
       .then((result) => {
         console.log(result)
       })
@@ -111,7 +102,7 @@ export const clusters_controller = {
   },
 
   reset: async medicines => {
-    // await data.dropCollection('clusters')
+    await data.dropCollection('clusters')
   
     let unique_medicine_names = new Set()
   
@@ -126,7 +117,7 @@ export const clusters_controller = {
 
     const unique_clusters = await names.map(async uniqueName => {
       const cluster = await clusters_controller.create(uniqueName)
-      // await clusters_controller.save(cluster)
+      await clusters_controller.save(cluster)
 
       return cluster  
     })
@@ -137,13 +128,11 @@ export const clusters_controller = {
       .then(async () => await medicines.forEach(async medicine => await addMedicineToCluster(medicine, all_clusters)))
       .then(async () => {
         all_clusters.forEach(async cluster => {
-          // await clusters_controller.populateMedicines(cluster._id)
-          // bindSimilarClusters(cluster, names)    
+          bindSimilarClusters(cluster, names)    
         })
       })
       .then(() => console.log('done'))
-      .catch(err => console.log(err))   
-      
+      .catch(err => console.log(err))      
   }
 }
 
@@ -159,9 +148,6 @@ async function addMedicineToCluster(medicine, all_clusters) {
     console.log('med', medicine)
     console.log('m', matched_cluster)
   }
-
-
-  // console.log(medicine._id)
   
   // save medicine to best match
   await clusters_controller.addMedicine(matched_cluster._id, medicine._id)
