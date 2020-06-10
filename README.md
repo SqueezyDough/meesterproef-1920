@@ -20,7 +20,7 @@ In this course we will bundle all our newly acquired superpowers to create a web
 ------
 
 ## Rubric
-### Waffs 
+### WAFFS 
 | Wat        | Hoe           | Waarom  |
 | ------------- |-------------| -----|
 | De code bevat geen syntaxfouten en is netjes opgemaakt | Duidlijke namen voor functies en variabelen. Ondescheid in camelcase en snakecase voor functies en constante variabelen. | Standaard eis voor een professionele app |
@@ -53,7 +53,7 @@ In this course we will bundle all our newly acquired superpowers to create a web
 | Er is voldoende real-time functionaliteit om begrip te toetsen. Een groot deel van de functionaliteit is zelf geschreven. Student is in staat online voorbeelden naar zijn/haar hand te zetten. De server houdt een datamodel bij en elke client wordt de juiste data doorgestuurd	 | De scanner kan real-time informatie ophalen van een medicijn. Ik verdeel de data onder buckets die de medicijnen ranked op populariteit. De medijnen staan in clusters omdat veel medicijnen onder dezelfde naam vallen, bijv paraceatmol, maar deze staan versnipperd in de API. Via clusters kan ik de medicijnen groeperen waardoor het zoeken makkelijker wordt. De clusters kijken ook hope erg ze op elkaar lijken. Clusters die meer dan 60% op elkaar lijken refereren naar elkaar. Dit maakt het makkelijker om er clusters bij te zoeken die ook als valide resultaat kunnen gelden.  | de cluster namen kunnen heel erg op elkaar lijken. Aangezien de input vd OCS niet 100% tye vertrouwen is moet je er rekening mee houden dat het eerste resultaat niet het juiste resultaat is. Daarom zoek ik er ook nog clusters bij die op elkaar lijken. De buckets zijn bedoeld om de performance verder te verbeteren. Als er een resultaat wordt gevonden in de eerste bucket en het heeft geen clusters die er op lijken kan ik deze meteen teruggeven aand e gebruiker zonder er nog andere clusters bij te zoeken. |
 | Single source of truth | De database is altijd de single source of truth. De server kan wel proberen de outkomst van het gescande medicijn te optimaliseren, maar veranderd nooit de waardes van een medicijn. | Een Single source of truth zorgt ervoor dat de bron data asltijd betrouwbaar is. Mutaties op de data kunnen ervoor zorgen dat de data niet meer klopt. Via de client kan geen data aangepast worden |
 
-### Web deseign
+### Web design
 | Wat        | Hoe           | Waarom  |
 | ------------- |-------------| -----|
 | Er is een user scenario geschreven dat aansluit bij de identiteit van de test persoon. | Staat in de wiki | Was handig om beter te begrijpen wie onze gebruiker precies is. |
