@@ -1,10 +1,14 @@
 .btn {
   position: relative;
-  padding: 1rem 2rem;
+  padding: .8rem;
   border: 3px solid var(--primary-color);
   font-family: AvenirNextBold;
   background-color: var(--white);
   cursor: pointer;
+
+  @media screen and (min-width: 30rem) {
+    padding: 1rem 2rem;
+  }
 
   &::before, &::after {
     content: '';
@@ -92,6 +96,8 @@
 }
 
 .-link {
+  @extend .btn;
+
   border-color: var(--secondary-color);
   background: transparent;
 

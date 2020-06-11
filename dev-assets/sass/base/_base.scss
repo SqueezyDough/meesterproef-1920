@@ -109,7 +109,13 @@ ul {
     margin-top: 4rem;
 
     li {
-      display: inline-block;
+      display: block;
+      height: 60px;
+      margin-bottom: 1rem;
+
+      @media screen and (min-width: 60rem) {
+        display: inline-block;
+      }
     }
    
   }
