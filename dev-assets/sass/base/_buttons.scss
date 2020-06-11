@@ -91,3 +91,23 @@
   }
 }
 
+.-link {
+  border-color: var(--secondary-color);
+  background: transparent;
+
+  &::after, &::before {
+    background-color: var(--primary-color);
+  }
+
+  &:hover, &:focus {
+    border-color: var(--white);
+
+    span {
+      color: var(--white)
+    }
+  }
+
+  span {
+    color: var(--secondary-color)
+  }
+}
