@@ -1,32 +1,47 @@
 .scanner {
+  padding: 2.5rem 0;
+
   &__video-wrapper {
-    text-align: center;
+    font-size: 0;
+    text-align: left;
+
+    video {
+      width: 480px;
+      height: 175px;
+      background: var(--grey);
+    }
+  }
+
+  &__introduction {
+    &._hide {
+      display: none;
+    }
+    &._show {
+      display: block;
+    }
   }
 }
 
 .tesseract {
   &__output-container {
     width: 100%;
-    margin: 3rem 0;
-    padding-top: 1.25rem;
+    margin: 0 0 3rem;
+    padding: 2rem 0 1.25rem;
     background-color: var(--white);
-    box-shadow: 0 6px 8px 0 var(--light-grey);
-  }
 
-  &__output-incorrect {
-    padding: 1.25rem;
-    background: var(--light-grey);
-    transition: 250ms ease-in-out;
-
-    &:hover {
-      cursor: pointer;
-      background: var(--error-color);
-
-      color: #fff;
+    h2 {
+      margin: 0;
     }
 
-    p {
-      margin: 0;
+    em {
+      margin-right: 5px;
+      &:first-child {
+        margin-left: 5px;
+      }
+    }
+
+    button {
+      margin-top: 0.65rem;
     }
   }
 }
