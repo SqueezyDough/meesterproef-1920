@@ -31,28 +31,35 @@ exports.databaseSearch = async (req, res) => {
     const {text, confidence} = entry
     const matches = string_similarity.findBestMatch(text, all_cluster_strings)
 
-    return matches.bestMatch
+    return {best_match: matches.bestMatch, matched_on: text}
   })
 
   const most_likely_clusters = await all_best_matches.map(async match => {
-    const most_likely_cluster = await clusters_controller.findByIdentifier(match.target)
-    return { rating: match.rating, cluster: most_likely_cluster}
+    match.most_likely_cluster = await clusters_controller.findByIdentifier(match.best_match.target)
+    return match
   })
 
   Promise.all(most_likely_clusters)
     .then(async clusters => {
       const highest_rated_cluster = await clusters.reduce(function(prev, current) {
-        return (prev.rating > current.rating) ? prev : current
+        return (prev.best_match.rating > current.best_match.rating) ? prev : current
       })
+      
+      const cluster_medicines = await clusters_controller.getMedicinesFromCluster(highest_rated_cluster.most_likely_cluster)
 
-      const cluster_medicines = await clusters_controller.getMedicinesFromCluster(highest_rated_cluster.cluster)
       Promise.all(cluster_medicines)
-        .then(medicines => {
+        .then(values => {
           if(req.body.additional_words.length) {
-            const best_matching_medicine = additionalWordsFilter(medicines, req.body.additional_words)
-            res.send(best_matching_medicine)
+            const best_matching_medicine = additionalWordsFilter(values, req.body.additional_words)
+            res.send(
+              {
+                medicines: best_matching_medicine.match, 
+                matched_on: highest_rated_cluster.matched_on, 
+                matched_on_additional: best_matching_medicine.matched_on_additional
+              }
+            )
           } else {
-            res.send(medicines)
+            res.send({medicines: values, matched_on: highest_rated_cluster.matched_on})
           }
         })
     })
@@ -83,6 +90,6 @@ function additionalWordsFilter(medicines, additional_words) {
   const highest_rated_medicine = medicines_and_matched_rating.reduce(function(prev, current) {
     return (prev.match.rating > current.match.rating) ? prev : current
   })
-
-  return highest_rated_medicine.medicine
+  
+  return {match: highest_rated_medicine.medicine, matched_on_additional: highest_rated_medicine.match.target}
 }
