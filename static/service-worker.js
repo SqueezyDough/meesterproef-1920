@@ -25,6 +25,8 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+    const fileType = e.request.destination
+
     // cache only strategy
     if (isCoreGetRequest(e.request))  {
         // open from cache
@@ -33,11 +35,11 @@ self.addEventListener('fetch', e => {
                 .then(cache => cache.match(e.request.url))
         )
     // generic fallback
-    } else if (isHtmlGetRequest(e.request)) {
+    } else if (isHtmlGetRequest(e.request) || (isFileGetRequest(e.request, fileType) && isCachedFileType(fileType))) {
         e.respondWith(
-            caches.open('html-cache')
+            caches.open(`${fileType}-cache`)
                 .then(cache => cache.match(e.request.url))
-                .then(res => res ? res : fetchAndCache(e.request, 'html-cache')
+                .then(res => res ? res : fetchAndCache(e.request, `${fileType}-cache`)
                 .catch(e => {
                     return caches.open(CORE_CACHE_NAME)
                         .then(cache => cache.match('/offline'))
@@ -60,8 +62,16 @@ function fetchAndCache(request, cacheName) {
         })
 }
 
+function isCachedFileType(fileType) {
+    return ['image', 'font', 'script', 'manifest'].includes(fileType)
+}
+
 function isCoreGetRequest(request) {
     return request.method === 'GET' && CORE_ASSETS.includes(getPathName(request.url))
+}
+
+function isFileGetRequest(request, fileType) {
+    return request.method === 'GET' && (request.headers.get('accept') !== null && request.destination.indexOf(`${fileType}`) > -1)
 }
 
 function isHtmlGetRequest(request) {
