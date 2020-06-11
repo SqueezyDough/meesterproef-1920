@@ -1,9 +1,23 @@
 <section class="scanner">
-  <div class="scanner__video-wrapper">
-    <video class="scanner__video" autoplay="true" id="scanner_element"></video>
+  <div class="page-inner">
+    <div class="scanner__video-wrapper">
+      <video class="scanner__video" autoplay="true" id="scanner_element"></video>
+    </div>
+    <section class="tesseract__output-container">
+      <h2>Uw invoer</h2>
+      <div id="tesseract_output_container" class="tesseract_output">
+      </div>
+{{!-- <div id="tesseract_output_container" class="tesseract_output"><p>Wij hebben de naam: <em class="output-highlight">Strepsils</em> <em class="output-highlight _secondary">Honing</em>gescand</p><button id="tesseract_output_incorrect" class="btn -secondary -small"><span>Scan opnieuw</span></button></div> --}}
+    </section>
+    <section class="scanner__introduction">
+      <h2>Krijgt u binnen enkele seconden geen resultaat?</h2>
+      <ul class="_styled">
+        <li>Zorg dat de naam of registratienummer goed in beeld is.</li>
+        <li>Zorg voor goede verlichting.</li>
+        <li>Zorg ervoor dat andere text zo min mogelijk in beeld is.</li>
+        <li>Probeer zo min mogelijk te bewegen.</li>
+      </ul>
+    </section>
+    <section class="overview__cards -scanner"></section>
   </div>
-
-  <div id="tesseract_output_container">
-  </div>
-  <section class="overview__cards -scanner"></section>
 </section>
