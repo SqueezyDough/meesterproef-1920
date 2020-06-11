@@ -1,0 +1,12 @@
+.icon {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: .5rem;
+  vertical-align: text-top;
+}
+
+.icon-next {
+  @extend .icon;
+  background-image: url('../visuals/icons/next.svg');
+}

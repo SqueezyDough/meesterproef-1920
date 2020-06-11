@@ -4,12 +4,40 @@
     <small>{{registrationNumber}}</small>
   </header>
 
+  <label for="{{id}}_select_med" class="card__details-toggle">
+    Dit is mijn medicijn
+  </label>
+  <input id="{{id}}_select_med" type="checkbox">
+
   <div class="card__details">
-     <h2>Actieve Ingredient(en)</h2>
-    {{#if activeIngredient}} 
-      <span>{{activeIngredient}}</span>
-      {{else}}
-      <span>Geen actieve ingrediënten gevonden</span>
-    {{/if}}
+    <header class="card__details__header">
+      <h1>{{name}}</h1>
+      <small>{{registrationNumber}}</small>
+    </header>
+
+    <div class="card__details__info">
+      <h2>Actieve Ingredient(en)</h2>
+      {{#if activeIngredient}} 
+        <span>{{activeIngredient}}</span>
+        {{else}}
+        <span>Geen actieve ingrediënten gevonden</span>
+      {{/if}}
+    
+      <h2>Gevonden bijsluiters</h2>
+      <ul class="leaflet-list">
+        <li>
+          <a href="#">
+            <i class="icon-next"></i>
+            Bijsluiter (PDF)
+          </a>
+          <small>Gevonden op <a href="https://www.apotheekkennisbank.nl/geneesmiddelen/bijsluiters/zoeken">apotheekkennisbank.nl</a></small>
+        </li> 
+      </ul>
+
+      <label for="{{id}}_select_med" class="card__details-toggle -active">
+        Sluit venster
+      </label>
+    </div>
   </div>
+  <div class="filter"></div> 
 </article>
