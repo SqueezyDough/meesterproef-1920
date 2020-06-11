@@ -47,10 +47,13 @@ function appendMedicineCards(medicine_cards, suspected_medicines_container) {
   })
 }
 
-function appendTesseractOutput(output) {
+function appendTesseractOutput(output_type, matched_on, matched_on_additional = null) {
   const tesseract_output_container = document.getElementById('tesseract_output_container')
-  tesseract_output_container.innerHTML = `<p>Wij hebben de code: ${output.text} met een zekerheid van ${output.confidence.toFixed(2)} gescanned</p>`
-  tesseract_output_container.insertAdjacentHTML('beforeend', '<div id="tesseract_output_incorrect" class="tesseract__output-incorrect"><p>Niet het juiste gescaned? Scan opnieuw!</p></div>')
+
+  if(output_type === 'name' && matched_on_additional === null) tesseract_output_container.innerHTML = `<p>Wij hebben de naam: <em class="output-highlight">${matched_on}</em> gescand</p>`
+  if(output_type === 'name' && matched_on_additional !== null) tesseract_output_container.innerHTML = `<p>Wij hebben de naam: <em class="output-highlight">${matched_on}</em> <em class="output-highlight _secondary">${matched_on_additional}</em>gescand</p>`
+  if(output_type === 'code') tesseract_output_container.innerHTML = `<p>Wij hebben de code: <em class="output-highlight">${matched_on}</em> gescand</p>` 
+  tesseract_output_container.insertAdjacentHTML('beforeend', '<button id="tesseract_output_incorrect" class="btn -secondary -small"><span>Scan opnieuw</scan></button>')
 
   document.getElementById('tesseract_output_incorrect').addEventListener('click', event => {
     tesseractReset(tesseract_output_container,document.querySelector('.overview__cards'))
@@ -63,6 +66,14 @@ function appendLoadingState(suspected_medicines_container) {
 
 function removeLoadingState(suspected_medicines_container) {
   suspected_medicines_container.innerHTML = ''
+}
+
+function scannerIntroductionToggle() {
+  const scanner__introduction = document.querySelector('.scanner__introduction')
+  if(scanner__introduction.classList.contains('_hide')) scanner__introduction.classList.remove('_hide')
+  else {
+    scanner__introduction.classList.add('_hide')
+  }
 }
 
 // TODO EXIT STATEMENT SHOULD BE WHEN MEDICINE HAS BEEN RETRIEVED FROM API, AND WORKER.TERMINATE
@@ -88,6 +99,7 @@ async function recognizeRVG(tesseract_worker) {
     if(code_prefix_index === -1) {
       nameDetectionHandler(result, tesseract_worker)
     } else {
+      if(/^\d+$/.test(result.data.words[code_prefix_index +1])) throw 'Code is not of correct format'
       codeDetectionHandler(result, code_prefix_index, tesseract_worker)
     }
   }
@@ -119,7 +131,7 @@ function tesseractReset(tesseract_output_container = undefined, overview_cards_c
     tesseract_output_container.innerHTML = ''
     overview_cards_container.innerHTML = ''
   }
-
+  scannerIntroductionToggle()
   const tesseract_worker = Tesseract.createWorker({
   })
 
@@ -148,8 +160,7 @@ function nameDetectionHandler(result, tesseract_worker) {
   })
 
   const suspected_medicines_container = document.querySelector('.overview__cards')
-  // TODO append correct tesseract output
-  //appendTesseractOutput(detected_code)
+  scannerIntroductionToggle()
   appendLoadingState(suspected_medicines_container)
 
   const response = fetch('/database-search', {
@@ -163,7 +174,8 @@ function nameDetectionHandler(result, tesseract_worker) {
       return response.json()
     })
     .then(async suspected_medicines => {
-      const medicine_cards = await retrieveMedicineCards(suspected_medicines, tesseract_worker)
+      appendTesseractOutput('name', suspected_medicines.matched_on, suspected_medicines.matched_on_additional)
+      const medicine_cards = await retrieveMedicineCards(suspected_medicines.medicines, tesseract_worker)
       removeLoadingState(suspected_medicines_container)
       appendMedicineCards(medicine_cards, suspected_medicines_container)
     })
@@ -177,7 +189,9 @@ async function codeDetectionHandler(result, code_prefix_index, tesseract_worker)
   const detected_code = result.data.words[code_prefix_index +1]
 
   const suspected_medicines_container = document.querySelector('.overview__cards')
-  appendTesseractOutput(detected_code)
+
+  appendTesseractOutput('code', detected_code.text)
+  scannerIntroductionToggle()
   appendLoadingState(suspected_medicines_container)
 
   if(detected_code.choices.length > 1) {
