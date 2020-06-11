@@ -1,7 +1,6 @@
 const details_checkboxes = document.querySelectorAll('.card__details-checkbox')
-console.log(details_checkboxes)
 
-const show_card_details = () => {
+const fix_scroll = () => {
   const scroll_y = document.documentElement.style.getPropertyValue('--scroll-y')
   const body = document.body
 
@@ -9,7 +8,7 @@ const show_card_details = () => {
   body.style.top = `-${scroll_y}`
 }
 
-const close_card_details = () => {
+const enable_scroll = () => {
   const body = document.body
   const scroll_y = body.style.top
   body.style.position = ''
@@ -21,8 +20,14 @@ window.addEventListener('scroll', () => {
   document.documentElement.style.setProperty('--scroll-y', `${window.scroll_y}px`)
 })
 
+// fix scroll when modal is open
 details_checkboxes.forEach(chk => {
   chk.addEventListener('click', () => {
-    console.log(chk)
+    // source: https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/
+    if (chk.checked) {
+      fix_scroll()
+    } else {
+      enable_scroll()
+    }  
   })
 })
