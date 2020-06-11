@@ -91,6 +91,31 @@ ul {
   text-align: center;
 }
 
+.no-script-msg {
+  width: 100%;
+  padding: .5rem .5rem 2rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+
+  p {
+    font-size: 1.2rem;
+  }
+
+  a {
+    margin-top: 2rem;
+  }
+
+  &__options {
+    margin-top: 4rem;
+
+    li {
+      display: inline-block;
+    }
+   
+  }
+}
+
 .error {
+  display: block;
   color: var(--error-color);
 }
