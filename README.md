@@ -105,7 +105,12 @@ Medicines contain information about a specific medicine.
 <a name="ml">
 	
 ## Data lifecycle
-![meds_dlc](https://user-images.githubusercontent.com/33430653/84509290-c57b1700-acc3-11ea-8bc8-447721836c55.png)
+<details>
+  <summary>See diagram</summary	
+	  
+  ![meds_dlc](https://user-images.githubusercontent.com/33430653/84509290-c57b1700-acc3-11ea-8bc8-447721836c55.png)
+</details>
+
   
 ## Machine learning
 For this project we make use of machine learning to recognize characters on medicine boxes. The package we use is [Tesseract](https://www.npmjs.com/package/node-tesseract-ocr).
