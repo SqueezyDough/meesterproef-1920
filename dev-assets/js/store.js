@@ -1,15 +1,13 @@
 const storage_controller = {
-  add: (collection, medicine, id) => {
+  add: (collection, medicine) => {
     storage_controller.get(collection) 
-      ? storage_controller.update(collection, medicine, id) 
-      : storage_controller.set(collection, medicine, id)
+      ? storage_controller.update(collection, medicine) 
+      : storage_controller.set(collection, medicine)
   },
   get: (collection) => localStorage.getItem(collection),
   set: (collection, medicine) => localStorage.setItem(collection, JSON.stringify(medicine)),
-  update: (collection, medicine, id) => {  
+  update: (collection, medicine) => {  
     const storage_items = [].concat(JSON.parse(storage_controller.get(collection)))
-
-    console.log(storage_items)
 
     if (!storage_items.find(m => m.id === medicine.id)) {
       storage_items.push(medicine)
@@ -35,7 +33,7 @@ medicine_cards.forEach(card => {
       const medicine = await fetcher(id)
       const collection = 'seached'
 
-      storage_controller.add(collection, medicine, id)
+      storage_controller.add(collection, medicine)
     }
   })
 })
