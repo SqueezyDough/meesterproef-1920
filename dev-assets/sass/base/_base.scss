@@ -17,7 +17,7 @@ body {
   display: flex;
   flex-flow: column;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   margin: 0;
   font-family: AvenirNext, sans-serif;
 }
@@ -43,6 +43,16 @@ ul {
     margin: 0.625rem 0;
     padding-left: 2.5rem;
     list-style: initial;
+  }
+
+  &._inline {
+    li {
+      display: inline-block;
+      margin-right: 0.625rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 }
 
@@ -136,7 +146,6 @@ ul {
 .output-highlight {
   background: var(--secondary-color);
   padding: 0.625rem 2.5rem;
-  border-radius: 2rem;
 
   &._secondary {
     background: var(--light-grey);
