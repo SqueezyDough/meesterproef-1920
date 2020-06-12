@@ -30,51 +30,6 @@ if (navigator.mediaDevices.getUserMedia) {
   console.log('Your browser down not support video streams')
 }
 
-function getBase64Image() {
-  const canvas = document.createElement('canvas'),
-    context = canvas.getContext('2d')
-
-  canvas.width = video.offsetWidth
-  canvas.height = video.offsetHeight
-  context.drawImage(video, 0 ,0, video.offsetWidth, video.offsetHeight)
-
-  return canvas.toDataURL('image/jpeg')
-}
-
-function appendMedicineCards(medicine_cards, suspected_medicines_container) {
-  medicine_cards.forEach(card => {
-    suspected_medicines_container.insertAdjacentHTML('beforeend', card)
-  })
-}
-
-function appendTesseractOutput(output_type, matched_on, matched_on_additional = null) {
-  const tesseract_output_container = document.getElementById('tesseract_output_container')
-
-  if(output_type === 'name' && matched_on_additional === null) tesseract_output_container.innerHTML = `<p>Wij hebben de naam: <em class="output-highlight">${matched_on}</em> gescand</p>`
-  if(output_type === 'name' && matched_on_additional !== null) tesseract_output_container.innerHTML = `<p>Wij hebben de naam: <em class="output-highlight">${matched_on}</em> <em class="output-highlight _secondary">${matched_on_additional}</em>gescand</p>`
-  if(output_type === 'code') tesseract_output_container.innerHTML = `<p>Wij hebben de code: <em class="output-highlight">${matched_on}</em> gescand</p>` 
-  tesseract_output_container.insertAdjacentHTML('beforeend', '<button id="tesseract_output_incorrect" class="btn -secondary -small"><span>Scan opnieuw</scan></button>')
-
-  document.getElementById('tesseract_output_incorrect').addEventListener('click', event => {
-    tesseractReset(tesseract_output_container,document.querySelector('.overview__cards'))
-  })  
-}
-
-function appendLoadingState(suspected_medicines_container) {
-  suspected_medicines_container.innerHTML = '<img class="overview__cards__loading-state" src="/visuals/gif/loading-state.gif" alt="Loading overview">'
-}
-
-function removeLoadingState(suspected_medicines_container) {
-  suspected_medicines_container.innerHTML = ''
-}
-
-function scannerIntroductionToggle() {
-  const scanner__introduction = document.querySelector('.scanner__introduction')
-  if(scanner__introduction.classList.contains('_hide')) scanner__introduction.classList.remove('_hide')
-  else {
-    scanner__introduction.classList.add('_hide')
-  }
-}
 
 // TODO EXIT STATEMENT SHOULD BE WHEN MEDICINE HAS BEEN RETRIEVED FROM API, AND WORKER.TERMINATE
 // TODO RENAME FUNCTION
@@ -99,7 +54,7 @@ async function recognizeRVG(tesseract_worker) {
     if(code_prefix_index === -1) {
       nameDetectionHandler(result, tesseract_worker)
     } else {
-      if(/^\d+$/.test(result.data.words[code_prefix_index +1])) throw 'Code is not of correct format'
+      if(/^\d+$/.test(result.data.words[code_prefix_index +1].text === false)) throw 'Code is not of correct format'
       codeDetectionHandler(result, code_prefix_index, tesseract_worker)
     }
   }
@@ -110,21 +65,6 @@ async function recognizeRVG(tesseract_worker) {
 }
 
 // TODO check if we need to migrate this to the server
-async function searchMedicine(suspected_code) {
-  const form_data = new FormData()
-  form_data.append('suspected_code', suspected_code)
-
-  const suspected_medicines = await fetch('/tesseract-search', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(suspected_code)
-  })
-    .then(response => response.json())
-
-  return suspected_medicines
-}
 
 function tesseractReset(tesseract_output_container = undefined, overview_cards_container = undefined) {
   if(tesseract_output_container !== undefined && overview_cards_container !== undefined) {
@@ -158,7 +98,8 @@ function nameDetectionHandler(result, tesseract_worker) {
   const cleaned_confident_words = confident_words.map(words => {
     return {text: words.text, confidence: words.confidence}
   })
-
+  
+  console.log(cleaned_confident_words)
   const suspected_medicines_container = document.querySelector('.overview__cards')
   scannerIntroductionToggle()
   appendLoadingState(suspected_medicines_container)
@@ -174,6 +115,7 @@ function nameDetectionHandler(result, tesseract_worker) {
       return response.json()
     })
     .then(async suspected_medicines => {
+      console.log(suspected_medicines)
       appendTesseractOutput('name', suspected_medicines.matched_on, suspected_medicines.matched_on_additional)
       const medicine_cards = await retrieveMedicineCards(suspected_medicines.medicines, tesseract_worker)
       removeLoadingState(suspected_medicines_container)
@@ -210,6 +152,70 @@ async function codeDetectionHandler(result, code_prefix_index, tesseract_worker)
     removeLoadingState(suspected_medicines_container)
     appendMedicineCards(medicine_cards, suspected_medicines_container)
   }
+}
+
+
+// HELPER FUNCTIONS
+function getBase64Image() {
+  const canvas = document.createElement('canvas'),
+    context = canvas.getContext('2d')
+
+  canvas.width = video.offsetWidth
+  canvas.height = video.offsetHeight
+  context.drawImage(video, 0 ,0, video.offsetWidth, video.offsetHeight)
+
+  return canvas.toDataURL('image/jpeg')
+}
+
+function appendMedicineCards(medicine_cards, suspected_medicines_container) {
+  medicine_cards.forEach(card => {
+    suspected_medicines_container.insertAdjacentHTML('beforeend', card)
+  })
+}
+
+function appendTesseractOutput(output_type, matched_on, matched_on_additional = null) {
+  const tesseract_output_container = document.getElementById('tesseract_output_container')
+
+  if(output_type === 'name' && matched_on_additional === null) tesseract_output_container.innerHTML = `<p>Wij hebben het volgende gescand: <ul class="_inline"><li class="output-highlight">${matched_on}</li></ul>`
+  if(output_type === 'name' && matched_on_additional !== null) tesseract_output_container.innerHTML = `<p>Wij hebben het volgende gescand: <ul class="_inline"><li class="output-highlight">${matched_on}</li><li class="output-highlight _secondary">${matched_on_additional}</li></ul>`
+  if(output_type === 'code') tesseract_output_container.innerHTML = `<p>Wij hebben de code: <em class="output-highlight">${matched_on}</em> gescand</p>` 
+  tesseract_output_container.insertAdjacentHTML('beforeend', '<button id="tesseract_output_incorrect" class="btn -secondary -small"><span>Scan opnieuw</scan></button>')
+
+  document.getElementById('tesseract_output_incorrect').addEventListener('click', event => {
+    tesseractReset(tesseract_output_container,document.querySelector('.overview__cards'))
+  })  
+}
+
+function appendLoadingState(suspected_medicines_container) {
+  suspected_medicines_container.innerHTML = '<img class="overview__cards__loading-state" src="/visuals/gif/loading-state.gif" alt="Loading overview">'
+}
+
+function removeLoadingState(suspected_medicines_container) {
+  suspected_medicines_container.innerHTML = ''
+}
+
+function scannerIntroductionToggle() {
+  const scanner__introduction = document.querySelector('.scanner__introduction')
+  if(scanner__introduction.classList.contains('_hide')) scanner__introduction.classList.remove('_hide')
+  else {
+    scanner__introduction.classList.add('_hide')
+  }
+}
+
+async function searchMedicine(suspected_code) {
+  const form_data = new FormData()
+  form_data.append('suspected_code', suspected_code)
+
+  const suspected_medicines = await fetch('/tesseract-search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(suspected_code)
+  })
+    .then(response => response.json())
+
+  return suspected_medicines
 }
 
 async function retrieveMedicineCards(suspected_medicines, tesseract_worker) {

@@ -1,10 +1,10 @@
 <article class="card">
   <header class="card__header">
     {{#if name}}
-    <h1>{{name}}</h1>
+    <h2>{{name}}</h2>
     {{/if}}
     {{#if title}}
-    <h1>{{title}}</h1>
+    <h2>{{title}}</h2>
     {{/if}}
     <small>{{registrationNumber}}</small>
   </header>
@@ -16,18 +16,18 @@
 
   <div class="card__details">
     <header class="card__details__header">
-      <h1>{{name}}</h1>
+      <h2>{{name}}</h2>
       <small>{{registrationNumber}}</small>
     </header>
 
     <div class="card__details__info">
       <h2>Actieve Ingredient(en)</h2>
-      {{#if activeIngredient}} 
+      {{#if activeIngredient}}
         <span>{{activeIngredient}}</span>
         {{else}}
         <span>Geen actieve ingrediënten gevonden</span>
       {{/if}}
-    
+
       <h2>Gevonden bijsluiters</h2>
       <ul class="leaflet-list">
         <li>
@@ -36,7 +36,7 @@
             Bijsluiter (PDF)
           </a>
           <small>Gevonden op <a href="https://www.apotheekkennisbank.nl/geneesmiddelen/bijsluiters/zoeken">apotheekkennisbank.nl</a></small>
-        </li> 
+        </li>
       </ul>
 
       <label for="{{id}}_select_med" class="card__details-toggle -active">
@@ -44,5 +44,5 @@
       </label>
     </div>
   </div>
-  <div class="filter"></div> 
+  <div class="filter"></div>
 </article>
