@@ -121,19 +121,25 @@ and comparing these with future searches.
 <summary>Flow chart medicine recognition</summary>
 Recognition flow start
 
-![flow-chart-v1-flow-start](https://user-images.githubusercontent.com/19706066/83023546-54820100-a02d-11ea-81b4-aa99712fc7b8.jpg)
+![flowchart-starting-point](https://user-images.githubusercontent.com/19706066/84509505-168b0b00-acc4-11ea-845d-e329c5fa652c.jpg)
 
 ------
 
 Recognizing medicine name flow
 
-![flow-chart-v1-recognise-name-flow](https://user-images.githubusercontent.com/19706066/83023571-5cda3c00-a02d-11ea-9568-828ea07fc889.jpg)
+![recognise-medicin-name](https://user-images.githubusercontent.com/19706066/84509479-0d01a300-acc4-11ea-867a-c1793f124f07.jpg)
 
 ------
 
 Recognizing RVG code flow
 
-![flow-chart-v1-recognise-rvg-flow](https://user-images.githubusercontent.com/19706066/83023595-64014a00-a02d-11ea-841e-e854756ca2ce.jpg)
+![recognize-registration-nmbr](https://user-images.githubusercontent.com/19706066/84509482-0f63fd00-acc4-11ea-9c58-63412d3bb25f.jpg)
+
+------
+
+Find matching clusters flow
+
+![find-matching-clusers](https://user-images.githubusercontent.com/19706066/84509492-1428b100-acc4-11ea-86d2-410d7b439ed6.jpg)
 </details>
 
 <a name="docs">
