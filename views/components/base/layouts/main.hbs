@@ -11,7 +11,7 @@
     <link rel="manifest" href="/manifest.json">
 
     <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js' defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.ejs" defer></script>
     <script type="module" src="./dist/main.js" defer></script>
 
     <title>Medicijn scanner</title>
@@ -30,7 +30,7 @@
               console.log('sw registered 😎', regis.scope)
             })
             .catch(err => {
-              console.log('😥 sw registration failed: ', err)
+              console.log('😥 sw regi stration failed: ', err)
             })
         })
       }

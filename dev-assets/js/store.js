@@ -31,7 +31,7 @@ medicine_cards.forEach(card => {
   chk.addEventListener('click', async () => {
     if (chk.checked) {
       const medicine = await fetcher(id)
-      const collection = 'seached'
+      const collection = 'searched'
 
       storage_controller.add(collection, medicine)
     }

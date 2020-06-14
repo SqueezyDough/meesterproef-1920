@@ -95,6 +95,24 @@
   }
 }
 
+.btn-tertiary {
+  display: inline-block;
+  padding: .5rem 1.5rem;
+  background-color: var(--secondary-color);
+  border-radius: 30px;
+  border: none;
+  color: var(--black);
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover, &:focus {
+    background-color: var(--primary-color);
+    color: var(--white);
+  }
+}
+
 .-small {
   @extend .btn;
 

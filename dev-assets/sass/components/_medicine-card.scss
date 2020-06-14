@@ -43,7 +43,7 @@
       align-self: center;
     }
 
-    &:hover {
+    &:hover, &:focus {
       background-color: var(--primary-color);
       color: var(--white)
     }
