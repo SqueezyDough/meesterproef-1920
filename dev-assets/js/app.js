@@ -12,7 +12,7 @@ const template = `
     </header>
 
     <ul class="card__actions">
-      <li class="card__actions__delete"><button class="btn-quartiary">Verwijder</button></li>
+      <li class="card__actions__delete"><button class="btn-quartiary">Verwijderen</button></li>
       <li class="card__actions__details">
         <label for="{{id}}_select_med" class="card__details-toggle">Info</label>
         <input id="{{id}}_select_med" class="card__details-checkbox" type="checkbox">

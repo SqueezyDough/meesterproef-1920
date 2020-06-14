@@ -37,7 +37,7 @@ gulp.task('compile-js', function(done) {
 		.pipe(plugins.babel({
 			presets: ['@babel/env']
 		}))
-	   	.pipe(plugins.uglify())
+		.pipe(plugins.uglify())
 		.pipe(gulp.dest('static/dist'))
 		   
 	done()
