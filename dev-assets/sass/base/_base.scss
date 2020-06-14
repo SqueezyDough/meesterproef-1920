@@ -20,6 +20,7 @@ body {
   width: 100%;
   margin: 0;
   font-family: AvenirNext, sans-serif;
+  font-display: swap;
 }
 
 main {
@@ -130,11 +131,11 @@ ul {
 }
 
 .is-hidden {
-  display: none;
+  display: none !important;
 }
 
 .is-visible {
-  display: block;
+  display: block !important;
 }
 
 .error {
