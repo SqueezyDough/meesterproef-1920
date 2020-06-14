@@ -113,6 +113,17 @@
   }
 }
 
+.btn-quartiary {
+  @extend .btn-tertiary;
+
+  background-color: var(--light-grey);
+
+  &:hover, &:focus {
+    background-color: var(--error-color);
+    color: var(--white);
+  }
+}
+
 .-small {
   @extend .btn;
 

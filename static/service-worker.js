@@ -4,7 +4,6 @@ const CORE_ASSETS = [
     '/',
     '/offline',
     '/dist/site.css',
-    // TODO: error pages
 ]
 
 self.addEventListener('install', e => {
@@ -26,6 +25,11 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
     const file_type = e.request.destination
+
+    // ignore these files
+    if (e.request.url === 'https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js' || e.request.url === 'https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.ejs') {
+        return false
+    }
 
     // cache only strategy
     if (isCoreGetRequest(e.request))  {

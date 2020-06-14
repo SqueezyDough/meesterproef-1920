@@ -11,42 +11,45 @@ const template = `
       <small>{{registrationNumber}}</small>
     </header>
 
-    <label for="{{id}}_select_med" class="card__details-toggle">
-      Meer informatie
-    </label>
-    <input id="{{id}}_select_med" class="card__details-checkbox" type="checkbox">
+    <ul class="card__actions">
+      <li class="card__actions__delete"><button class="btn-quartiary">Verwijder</button></li>
+      <li class="card__actions__details">
+        <label for="{{id}}_select_med" class="card__details-toggle">Info</label>
+        <input id="{{id}}_select_med" class="card__details-checkbox" type="checkbox">
 
-    <div class="card__details">
-      <header class="card__details__header">
-        <h2>{{name}}</h2>
-        <small>{{registrationNumber}}</small>
-      </header>
+        <div class="card__details">
+          <header class="card__details__header">
+            <h2>{{name}}</h2>
+            <small>{{registrationNumber}}</small>
+          </header>
 
-      <div class="card__details__info">
-        <h2>Actieve Ingredient(en)</h2>
-        {{^activeIngredient}}
-          <span>{{activeIngredient}}</span>
-          {{else}}
-          <span>Geen actieve ingrediënten gevonden</span>
-        {{/activeIngredient}}
+          <div class="card__details__info">
+            <h2>Actieve Ingredient(en)</h2>
+            {{^activeIngredient}}
+              <span>{{activeIngredient}}</span>
+              {{else}}
+              <span>Geen actieve ingrediënten gevonden</span>
+            {{/activeIngredient}}
 
-        <h2>Gevonden bijsluiters</h2>
-        <ul class="leaflet-list">
-          <li>
-            <a href="#">
-              <i class="icon-next"></i>
-              Bijsluiter (PDF)
-            </a>
-            <small>Gevonden op <a href="https://www.apotheekkennisbank.nl/geneesmiddelen/bijsluiters/zoeken">apotheekkennisbank.nl</a></small>
-          </li>
-        </ul>
+            <h2>Gevonden bijsluiters</h2>
+            <ul class="leaflet-list">
+              <li>
+                <a href="#">
+                  <i class="icon-next"></i>
+                  Bijsluiter (PDF)
+                </a>
+                <small>Gevonden op <a href="https://www.apotheekkennisbank.nl/geneesmiddelen/bijsluiters/zoeken">apotheekkennisbank.nl</a></small>
+              </li>
+            </ul>
 
-        <label for="{{id}}_select_med" class="card__details-toggle -active">
-          Sluit venster
-        </label>
-      </div>
-    </div>
-    <div class="filter"></div>
+            <label for="{{id}}_select_med" class="card__details-toggle -active">
+              Sluit venster
+            </label>
+          </div>
+        </div>
+        <div class="filter"></div>
+      </li>
+    </ul> 
   </article>
 </li>
 {{/History}}
@@ -101,6 +104,8 @@ function populate_history_list(storage_items) {
 }
 
 function renderHistoryItems(template, data) {
-  const insertContainer = document.querySelector('.notification__history-container');
-  insertContainer.insertAdjacentHTML('beforeend', Mustache.to_html(template, data));
+  const output = mustache(template, data)
+
+  const insertContainer = document.querySelector('.notification__history-container')
+  insertContainer.insertAdjacentHTML('beforeend', output)
 }

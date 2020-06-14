@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
   <head>
     <meta charset="UTF-8">
     <!-- TODO SITE DESCRIPTION SEO  -->
@@ -12,8 +12,7 @@
 
     <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js' defer></script>
     <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.ejs" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js" defer></script>
-    <script type="module" src="./dist/main.js" defer></script>
+    <script src="./dist/main.js" defer></script>
 
     <title>Medicijn scanner</title>
   </head>
@@ -31,9 +30,10 @@
               console.log('sw registered 😎', regis.scope)
             })
             .catch(err => {
-              console.log('😥 sw regi stration failed: ', err)
+              console.log('😥 sw registration failed: ', err)
             })
         })
       }
     </script> --}}
   </body>
+  </html>
