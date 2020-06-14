@@ -1,0 +1,43 @@
+.notification {
+  padding: 2rem 0;
+  margin-bottom: 1rem;
+  background-color: var(--light-grey);
+
+
+  h2 {
+    color: var(--primary-color)
+  }
+
+  div > button {
+    margin-top: 1rem;
+  }
+
+  &.-expanded {
+    padding: 2rem 0 300px;
+      
+    @media screen and (min-width: 81.25rem) {
+      padding: 2rem 0;
+    }
+  }
+}
+
+.notification__history-container {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 3rem;
+
+  @media screen and (min-width: 81.25rem) {
+    position: relative;
+  }
+
+
+  > li {
+    width: 350px;
+    margin-right: 1rem;
+    background-color: var(--white);
+    border-radius: 16px; 
+  }
+}

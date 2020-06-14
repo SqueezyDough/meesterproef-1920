@@ -20,6 +20,7 @@ body {
   width: 100%;
   margin: 0;
   font-family: AvenirNext, sans-serif;
+  font-display: swap;
 }
 
 main {
@@ -74,15 +75,6 @@ ul {
   }
 }
 
-// TODO check if this needs to be removed
-//.default-header {
-  //padding: 2rem 1rem;
-  //margin: 3rem 0;
-  //background-color: var(--white);
-  //color: var(--primary-color);
-  //font-family: AvenirNextBold;
-//}
-
 .page-inner {
   max-width: 80rem;
   padding: 0 1rem;
@@ -136,6 +128,14 @@ ul {
     }
 
   }
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.is-visible {
+  display: block !important;
 }
 
 .error {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
   <head>
     <meta charset="UTF-8">
     <!-- TODO SITE DESCRIPTION SEO  -->
@@ -11,8 +11,9 @@
     <link rel="manifest" href="/manifest.json">
 
     <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js' defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.js" defer></script>
-    <script type="module" src="./dist/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.ejs" defer></script>
+    <script src="./dist/main.js" defer></script>
+    <script src="./local-storage.js" defer></script>
 
     <title>Medicijn scanner</title>
   </head>
@@ -21,7 +22,7 @@
     
     {{{body}}}
     
-    {{!-- <script>
+    <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('service-worker.js')
@@ -34,5 +35,6 @@
             })
         })
       }
-    </script> --}}
+    </script>
   </body>
+  </html>
