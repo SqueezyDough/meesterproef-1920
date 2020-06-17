@@ -19,13 +19,6 @@ In this course we will bundle all our newly acquired superpowers to create a web
 
 ------
 
-<a name="api">
-
-## API
-We use the [Medicines API](https://hva-cmd-meesterproef-ai.now.sh/medicines) provided by De Voorhoede to get all medicine data.
-
-------
-
 <a name="install">
 
 ## Install Notes
@@ -42,10 +35,12 @@ __Usage__
 
 - Run dev environment: `npm run dev`
 - Watch dev files: `npm run watch`
+
 ------
 
 ## API
-We use the Algolia search engine API to retrieve information about medicines. De Voorhoede supplied us with their own API but we decided to store that data at Algolia.
+We use the Algolia search engine API to retrieve information about medicines. De Voorhoede supplied us with their own [API](https://hva-cmd-meesterproef-ai.now.sh/medicines) provided by De Voorhoede to get all medicine data.
+ but we decided to store that data at Algolia.
 
 ### API restrictions
 
