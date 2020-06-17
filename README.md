@@ -47,6 +47,7 @@ __Clone repository__
 `git clone https://github.com/SqueezyDough/meesterproef-1920.git`
 
 __Create environment file__
+
 To use our application a environment file is required with the following variables:
 * DB_USER
 * DB_PW
