@@ -35,12 +35,9 @@ We use the [Medicines API](https://hva-cmd-meesterproef-ai.now.sh/medicines) pro
 ### Install packages
 `npm run install`
 
-### Install tesseract
-`brew install tesseract`
-
 ### Usage
-`npm run dev`
-
+- Run dev environment: `npm run dev`
+- Watch dev files: `npm run watch`
 ------
 
 ## API
