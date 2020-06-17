@@ -115,7 +115,7 @@ Medicines contain information about a specific medicine.
 | additionalWordsFilter | When additional words are found | Improve best match by trying to find matching additional words
 
   
-### Flow charts
+## Flow charts
 In these flow charts we will show the procces of recognising either a name or a registration number and returning a medicine when scanning a medicine box.
 The round cornered squares in the flow chart are refrences to the flow chart for that specific module.
 
