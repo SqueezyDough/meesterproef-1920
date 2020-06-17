@@ -22,19 +22,19 @@
 
     {{{body}}}
 
-    {{!-- <script> --}}
-      {{!-- if ('serviceWorker' in navigator) { --}}
-        {{!-- window.addEventListener('load', () => { --}}
-          {{!-- navigator.serviceWorker.register('service-worker.js') --}}
-            {{!-- .then(regis => { --}}
-              {{!-- regis.update() --}}
-              {{!-- console.log('sw registered 😎', regis.scope) --}}
-            {{!-- }) --}}
-            {{!-- .catch(err => { --}}
-              {{!-- console.log('😥 sw registration failed: ', err) --}}
-            {{!-- }) --}}
-        {{!-- }) --}}
-      {{!-- } --}}
-    {{!-- </script> --}}
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('service-worker.js')
+            .then(regis => {
+              regis.update()
+              console.log('sw registered 😎', regis.scope)
+            })
+            .catch(err => {
+              console.log('😥 sw registration failed: ', err)
+            })
+        })
+      }
+    </script>
   </body>
   </html>
