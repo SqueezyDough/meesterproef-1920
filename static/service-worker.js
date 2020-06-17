@@ -1,88 +1,92 @@
 const CORE_CACHE = 1
 const CORE_CACHE_NAME = `core-cache-v${CORE_CACHE}`
 const CORE_ASSETS = [
-    '/',
-    '/offline',
-    '/dist/site.css',
+  '/',
+  '/offline',
+  '/dist/site.css',
 ]
 
 self.addEventListener('install', e => {
-    console.log('sw install')
+  console.log('sw install')
 
-    e.waitUntil(
-        caches.open(CORE_CACHE_NAME)
-            .then(cache => cache.addAll(CORE_ASSETS))
-            .then(() => self.skipWaiting())
-    )
+  e.waitUntil(
+    caches.open(CORE_CACHE_NAME)
+    .then(cache => cache.addAll(CORE_ASSETS))
+    .then(() => self.skipWaiting())
+  )
 })
 
 self.addEventListener('activate', e => {
-    console.log('sw activate');
+  console.log('sw activate');
 
-    // update sw in all active tabs
-    e.waitUntil(clients.claim())
+  // update sw in all active tabs
+  e.waitUntil(clients.claim())
 });
 
 self.addEventListener('fetch', e => {
-    const file_type = e.request.destination
+  const file_type = e.request.destination
+  const IGNORE = [
+    'https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js',
+    'https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.ejs',
+    'https://unpkg.com/tesseract.js@v2.1.0/dist/worker.min.js',
+    'https://unpkg.com/tesseract.js-core@v2.2.0/tesseract-core.wasm.js'
+  ] 
 
-    // ignore these files
-    if (e.request.url === 'https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js' || e.request.url === 'https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.ejs') {
-        return false
-    }
+  // ignore these files
+  if (ignore.includes(e.request.url)) return false
 
-    // cache only strategy
-    if (isCoreGetRequest(e.request))  {
-        // open from cache
-        e.respondWith(
-            caches.open(CORE_CACHE_NAME)
-                .then(cache => cache.match(e.request.url))
-        )
+  // cache only strategy
+  if (isCoreGetRequest(e.request))  {
+    // open from cache
+    e.respondWith(
+      caches.open(CORE_CACHE_NAME)
+      .then(cache => cache.match(e.request.url))
+    )
     // generic fallback
-    } else if (isHtmlGetRequest(e.request) || (isFileGetRequest(e.request, file_type) && isCachedfile_type(file_type))) {
-        e.respondWith(
-            caches.open(`${file_type}-cache`)
-                .then(cache => cache.match(e.request.url))
-                .then(res => res ? res : fetchAndCache(e.request, `${file_type}-cache`)
-                .catch(e => {
-                    return caches.open(CORE_CACHE_NAME)
-                        .then(cache => cache.match('/offline'))
-                })
-            )
-        )
-    }
+  } else if (isHtmlGetRequest(e.request) || (isFileGetRequest(e.request, file_type) && isCachedfile_type(file_type))) {
+    e.respondWith(
+      caches.open(`${file_type}-cache`)
+      .then(cache => cache.match(e.request.url))
+      .then(res => res ? res : fetchAndCache(e.request, `${file_type}-cache`)
+        .catch(e => {
+          return caches.open(CORE_CACHE_NAME)
+            .then(cache => cache.match('/offline'))
+        })
+      )
+    )
+  }
 })
 
 function fetchAndCache(request, cacheName) {
-    return fetch(request)
-        .then(response => {
-            if (!response.ok) {
-                throw new TypeError('Bad response status');
-            }
+  return fetch(request)
+    .then(response => {
+      if (!response.ok) {
+        throw new TypeError('Bad response status');
+      }
 
-            const clone = response.clone()
-            caches.open(cacheName).then((cache) => cache.put(request.url, clone))
-            return response
-        })
+      const clone = response.clone()
+      caches.open(cacheName).then((cache) => cache.put(request.url, clone))
+      return response
+    })
 }
 
 function isCachedfile_type(file_type) {
-    return ['image', 'font', 'script', 'manifest'].includes(file_type)
+  return ['image', 'font', 'script', 'manifest'].includes(file_type)
 }
 
 function isCoreGetRequest(request) {
-    return request.method === 'GET' && CORE_ASSETS.includes(getPathName(request.url))
+  return request.method === 'GET' && CORE_ASSETS.includes(getPathName(request.url))
 }
 
 function isFileGetRequest(request, file_type) {
-    return request.method === 'GET' && (request.headers.get('accept') !== null && request.destination.indexOf(`${file_type}`) > -1)
+  return request.method === 'GET' && (request.headers.get('accept') !== null && request.destination.indexOf(`${file_type}`) > -1)
 }
 
 function isHtmlGetRequest(request) {
-    return request.method === 'GET' && (request.headers.get('accept') !== null && request.headers.get('accept').indexOf('text/html') > -1)
+  return request.method === 'GET' && (request.headers.get('accept') !== null && request.headers.get('accept').indexOf('text/html') > -1)
 }
 
 function getPathName(requestUrl) {
-    const url = new URL(requestUrl);
-    return url.pathname;
+  const url = new URL(requestUrl);
+  return url.pathname;
 }
