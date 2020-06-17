@@ -43,6 +43,23 @@ We use the [Medicines API](https://hva-cmd-meesterproef-ai.now.sh/medicines) pro
 
 ------
 
+## API
+We use the Algolia search engine API to retrieve information about medicines. De Voorhoede supplied us with their own API but we decided to store that data at Algolia.
+
+### API restrictions
+
+__Records__
+
+There is a limit of how many records you are able to store at Algolia, this amount of records can be increased when you get a payed plan.
+Amount of records: 10.000
+
+__Operations__
+
+A operation is when a search query is fired at the Algolia search api and when records are being added to the Algolia index. The amount of operations can be increased when you get a payed plan.
+Amount of operations: 50.000
+
+------
+
 <a name="database">
   
 ## Database
