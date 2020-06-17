@@ -45,7 +45,7 @@ Medscan gives people the ability to retrieve crucial information about their med
 __Clone repository__
 
 `git clone https://github.com/SqueezyDough/meesterproef-1920.git`
-
+##
 __Create environment file__
 
 To use our application a environment file is required with the following variables:
@@ -56,11 +56,11 @@ To use our application a environment file is required with the following variabl
 * ALGOLIA_KEY
 
 To get acces to these keys, get in touch to become a collaborator.
-
+##
 __Install packages__
 
 `npm run install`
-
+##
 __Usage__
 
 - Run dev environment: `npm run dev`
