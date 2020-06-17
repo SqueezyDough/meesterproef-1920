@@ -22,8 +22,8 @@ In this course we will bundle all our newly acquired superpowers to create a web
 
 <details>
 <summary>See homepage</summary>
-	
-![home](https://user-images.githubusercontent.com/33430653/84889533-4dcd3380-b099-11ea-8554-952c835b9302.gif)
+
+<img src="https://user-images.githubusercontent.com/33430653/84889533-4dcd3380-b099-11ea-8554-952c835b9302.gif" alt="home" width="100%"/>
 </details>
 
 ------
