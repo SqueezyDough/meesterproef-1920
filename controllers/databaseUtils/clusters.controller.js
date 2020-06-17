@@ -9,7 +9,6 @@ const SCHEMA = mongoose.model('Cluster', model.cluster_schema)
 
 export const clusters_controller = {
   all: () => {
-    console.log('get clusters')
     return SCHEMA.find({}).lean()
       .then(clusters => clusters)
   },

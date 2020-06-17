@@ -29,6 +29,7 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
+    "express-minify-html-2": "^1.0.1",
     "handlebars": "^4.7.6",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.16",
