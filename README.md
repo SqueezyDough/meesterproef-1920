@@ -18,7 +18,9 @@ In this course we will bundle all our newly acquired superpowers to create a web
 - [Leroy van Biljouw](https://github.com/SqueezyDough/meesterproef-1920)
 
 ------
-## Screens 
+
+## Concept
+
 
 <details>
 <summary>See homepage</summary>
