@@ -115,32 +115,31 @@ Medicines contain information about a specific medicine.
 | additionalWordsFilter | When additional words are found | Improve best match by trying to find matching additional words
 
   
-## Flow chart
-For this project we make use of the [Tesseract](https://www.npmjs.com/package/node-tesseract-ocr) OCR package to recognize characters on medicine boxes.
+### Flow charts
+In these flow charts we will show the procces of recognising either a name or a registration number and returning a medicine when scanning a medicine box.
+The round cornered squares in the flow chart are refrences to the flow chart for that specific module.
 
 <details>
-<summary>Flow chart medicine recognition</summary>
-Recognition flow start
+<summary>Flow start</summary>
 
+##
 ![flowchart-starting-point](https://user-images.githubusercontent.com/19706066/84509505-168b0b00-acc4-11ea-845d-e329c5fa652c.jpg)
+</details>
 
-------
+<details>
+<summary>Recognise medicine name flow</summary>
 
-Recognizing medicine name flow
-
+##
 ![recognise-medicin-name](https://user-images.githubusercontent.com/19706066/84509479-0d01a300-acc4-11ea-867a-c1793f124f07.jpg)
 
-------
-
-Recognizing RVG code flow
-
-![recognize-registration-nmbr](https://user-images.githubusercontent.com/19706066/84509482-0f63fd00-acc4-11ea-9c58-63412d3bb25f.jpg)
-
-------
-
-Find matching clusters flow
-
 ![find-matching-clusers](https://user-images.githubusercontent.com/19706066/84509492-1428b100-acc4-11ea-86d2-410d7b439ed6.jpg)
+</details>
+
+<details>
+<summary>Recognise registration number flow</summary>
+
+##
+![recognize-registration-nmbr](https://user-images.githubusercontent.com/19706066/84509482-0f63fd00-acc4-11ea-9c58-63412d3bb25f.jpg)
 </details>
 
 <a name="docs">
