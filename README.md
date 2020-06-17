@@ -3,11 +3,15 @@ In this course we will bundle all our newly acquired superpowers to create a web
 
 ## Table of contents
 - [Collaborators](#collaborators)
-- [API](#api)
+- [Concept](#concept)
+- [Prerequisites](#prerequisites)
 - [Install notes](#install)
+- [API](#api)
 - [Database](#database)
-- [Machine learning](#machine-learning)
+- [Data lifecycle](#data-lyfecycle)
+- [Flow charts](#flow-charts)
 - [Other documentation](#docs)
+- [Sources](#sources)
 
 ------
 
@@ -31,6 +35,8 @@ Medscan gives people the ability to retrieve crucial information about their med
 ------
 
 <a name="install">
+
+## Prerequisites
 
 ## Install Notes
 
