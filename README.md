@@ -19,27 +19,51 @@ In this course we will bundle all our newly acquired superpowers to create a web
 
 ------
 
-<a name="api">
+## Concept
+Medscan gives people the ability to retrieve crucial information about their medicine either by scanning the box or by manual searching for the medicine name or registration number. Medscan uses OCR (optical character recognition) in order to read text from an image, we then identify the usable words from the image which we can use to get a matching medicine from our dataset.
 
-## API
-We use the [Medicines API](https://hva-cmd-meesterproef-ai.now.sh/medicines) provided by De Voorhoede to get all medicine data.
+<details>
+<summary>See homepage</summary>
+
+<img src="https://user-images.githubusercontent.com/33430653/84889533-4dcd3380-b099-11ea-8554-952c835b9302.gif" alt="home" width="100%"/>
+</details>
 
 ------
 
 <a name="install">
 
 ## Install Notes
-### Clone repository
+
+__Clone repository__
+
 `git clone https://github.com/SqueezyDough/meesterproef-1920.git`
 
-### Install packages
+__Install packages__
+
 `npm run install`
 
-### Install tesseract
-`brew install tesseract`
+__Usage__
 
-### Usage
-`npm run dev`
+- Run dev environment: `npm run dev`
+- Watch dev files: `npm run watch`
+
+------
+
+## API
+We use the Algolia search engine API to retrieve information about medicines. De Voorhoede supplied us with their own [API](https://hva-cmd-meesterproef-ai.now.sh/medicines) provided by De Voorhoede to get all medicine data.
+ but we decided to store that data at Algolia.
+
+### API restrictions
+
+__Records__
+
+There is a limit of how many records you are able to store at Algolia, this amount of records can be increased when you get a payed plan.
+Amount of records: 10.000
+
+__Operations__
+
+A operation is when a search query is fired at the Algolia search api and when records are being added to the Algolia index. The amount of operations can be increased when you get a payed plan.
+Amount of operations: 50.000
 
 ------
 
@@ -50,7 +74,7 @@ We use the [Medicines API](https://hva-cmd-meesterproef-ai.now.sh/medicines) pro
 <details>
   <summary>View ERD</summary>
     
-  ![meds_erd](https://user-images.githubusercontent.com/33430653/83125649-1beb3180-a0d8-11ea-9709-19201a9f9137.png)
+  ![erd](https://user-images.githubusercontent.com/33430653/84755393-e8f2da00-afc1-11ea-9d3c-8971211958a6.png)
 </details>
 
 ### Buckets
@@ -72,10 +96,8 @@ Medicines contain information about a specific medicine.
 </details>
 
   
-## Machine learning
-For this project we make use of machine learning to recognize characters on medicine boxes. The package we use is [Tesseract](https://www.npmjs.com/package/node-tesseract-ocr).
-In order to make this project a little bit more challenging we decided to implement a ranking system for recognition of medicine names, we do this by calculating positive findings confirmed by the user
-and comparing these with future searches.
+## Flow chart
+For this project we make use of the [Tesseract](https://www.npmjs.com/package/node-tesseract-ocr) OCR package to recognize characters on medicine boxes.
 
 <details>
 <summary>Flow chart medicine recognition</summary>
