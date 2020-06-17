@@ -94,8 +94,8 @@ Medicines contain information about a specific medicine.
 </details>
 
   
-## Machine learning
-For this project we make use of machine learning to recognize characters on medicine boxes. The package we use is [Tesseract](https://www.npmjs.com/package/node-tesseract-ocr).
+## Flow chart
+For this project we make use of the [Tesseract](https://www.npmjs.com/package/node-tesseract-ocr) OCR package to recognize characters on medicine boxes.
 
 <details>
 <summary>Flow chart medicine recognition</summary>
