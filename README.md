@@ -152,3 +152,5 @@ The round cornered squares in the flow chart are refrences to the flow chart for
   
 ## Other documentation
 For more documentation about our medicine scanner visit our [Wicky](https://github.com/SqueezyDough/meesterproef-1920/wiki)!
+
+## Sources
