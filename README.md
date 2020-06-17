@@ -29,13 +29,17 @@ We use the [Medicines API](https://hva-cmd-meesterproef-ai.now.sh/medicines) pro
 <a name="install">
 
 ## Install Notes
-### Clone repository
+
+__Clone repository__
+
 `git clone https://github.com/SqueezyDough/meesterproef-1920.git`
 
-### Install packages
+__Install packages__
+
 `npm run install`
 
-### Usage
+__Usage__
+
 - Run dev environment: `npm run dev`
 - Watch dev files: `npm run watch`
 ------
