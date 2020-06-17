@@ -1,5 +1,6 @@
 import express from 'express'
 import compression from 'compression'
+import minifyHTML from 'express-minify-html-2'
 import router from './routes/index.routes'
 import errorRouter from './routes/error.routes'
 import bodyParser from 'body-parser'
@@ -21,6 +22,18 @@ const PORT = process.env.PORT || 8888,
 
 APP
   .use(compression())
+  .use(minifyHTML({
+    override: true,
+    exception_url: false,
+    htmlMinifier: {
+        removeComments: true,
+        collapseWhitespace: true,
+        collapseBooleanAttributes: true,
+        removeAttributeQuotes: true,
+        removeEmptyAttributes: true,
+        minifyJS: true
+    }
+  }))
   .use(express.static('static'))
   .use(bodyParser.json())
   .use(URLENCODEDPARSER) 
