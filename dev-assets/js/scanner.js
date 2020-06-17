@@ -33,13 +33,22 @@ if (navigator.mediaDevices.getUserMedia) {
 
 // TODO EXIT STATEMENT SHOULD BE WHEN MEDICINE HAS BEEN RETRIEVED FROM API, AND WORKER.TERMINATE
 // TODO RENAME FUNCTION
-async function recognizeRVG(tesseract_worker) {
+async function recognizeRVG(tesseract_worker, index = null) {
+  let recursion_index = index
   let result = null
   const base64_image= getBase64Image()
   await tesseract_worker.load()
   await tesseract_worker.loadLanguage('eng')
   await tesseract_worker.initialize('eng')
 
+  if(recursion_index === null) {
+    recursion_index = 1
+  } else {
+    recursion_index +=1
+  }
+  if(recursion_index === 10) {
+    appendErrorState()
+  }
   try {
     result = await tesseract_worker.recognize(base64_image)
 
@@ -60,7 +69,7 @@ async function recognizeRVG(tesseract_worker) {
   }
   catch(error) {
     console.log(error)
-    recognizeRVG(tesseract_worker)
+    recognizeRVG(tesseract_worker, recursion_index)
   }
 }
 
@@ -99,7 +108,6 @@ function nameDetectionHandler(result, tesseract_worker) {
     return {text: words.text, confidence: words.confidence}
   })
   
-  console.log(cleaned_confident_words)
   const suspected_medicines_container = document.querySelector('.overview__cards')
   scannerIntroductionToggle()
   appendLoadingState(suspected_medicines_container)
@@ -115,7 +123,6 @@ function nameDetectionHandler(result, tesseract_worker) {
       return response.json()
     })
     .then(async suspected_medicines => {
-      console.log(suspected_medicines)
       appendTesseractOutput('name', suspected_medicines.matched_on, suspected_medicines.matched_on_additional)
       const medicine_cards = await retrieveMedicineCards(suspected_medicines.medicines, tesseract_worker)
       removeLoadingState(suspected_medicines_container)
@@ -184,6 +191,11 @@ function appendTesseractOutput(output_type, matched_on, matched_on_additional = 
   document.getElementById('tesseract_output_incorrect').addEventListener('click', event => {
     tesseractReset(tesseract_output_container,document.querySelector('.overview__cards'))
   })  
+}
+
+function appendErrorState() {
+  const tesseract_output_container = document.getElementById('tesseract_output_container')
+  tesseract_output_container.innerHTML = '<a href="#scanner__introduction" class="output-highlight _error">Scannen duurt langer dan normaal, bekijk onderstaande tips.</a>'
 }
 
 function appendLoadingState(suspected_medicines_container) {

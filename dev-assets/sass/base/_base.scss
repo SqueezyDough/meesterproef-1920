@@ -150,4 +150,20 @@ ul {
   &._secondary {
     background: var(--light-grey);
   }
+
+  &._error {
+    display: inline-block;
+    margin-top: 0.625rem;
+    background: var(--error-color);
+    border: 1px solid var(--error-color);
+    transition: 250ms ease-in-out;
+    color: var(--white);
+    text-align: center;
+
+    &:hover {
+      border: 1px solid var(--error-color);
+      background: var(--white);
+      color: var(--error-color);
+    }
+  }
 }
