@@ -95,6 +95,25 @@ Medicines contain information about a specific medicine.
   ![meds_dlc](https://user-images.githubusercontent.com/33430653/84509290-c57b1700-acc3-11ea-8bc8-447721836c55.png)
 </details>
 
+### Client functions
+
+| Name | Trigger | Function |
+| ------------- |-------------| -----|
+| nameDetectionHandler | When the user scans a medicine by name | Validates name, send it to the server and outputs the result |
+| registrationNumberHandler | When the user scans a medicine by registration number | Validates registration number, send it to the server and outputs the result |
+| appendTesseractOutput | When it receives a response from the server | Display the result that has been scanned by tesseract |
+| appendMedicineCards | When it receives a response from the server | Append medicine cards
+| appendLoadingState | When the OCR output is validated | Appends the loading state
+| removeLoadingState | When it receives a response from the server | Removes the loading state
+
+### Server functions
+| Name | Trigger | Function |
+| ------------- |-------------| -----|
+| databaseSearch | When the server receives a medicine name from the client | Return the best match it finds in the database
+| tesseractSearch | When the server receives a registration number from the client | finds the best match using Algolia search
+| overviewSearch | When the user searched on the overview page | extract search value from the string it receives from the client and finds the best match using Algolia search
+| additionalWordsFilter | When additional words are found | Improve best match by trying to find matching additional words
+
   
 ## Flow chart
 For this project we make use of the [Tesseract](https://www.npmjs.com/package/node-tesseract-ocr) OCR package to recognize characters on medicine boxes.
