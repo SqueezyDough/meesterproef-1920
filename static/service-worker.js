@@ -33,7 +33,7 @@ self.addEventListener('fetch', e => {
   ] 
 
   // ignore these files
-  if (ignore.includes(e.request.url)) return false
+  if (IGNORE.includes(e.request.url)) return false
 
   // cache only strategy
   if (isCoreGetRequest(e.request))  {
