@@ -85,8 +85,6 @@ window.addEventListener('offline', () => {
   cta_bottom_header.classList.add('is-hidden')
 })
 
-
-
 // fix scroll when modal is open
 details_checkboxes.forEach(chk => {
   chk.addEventListener('click', () => {
