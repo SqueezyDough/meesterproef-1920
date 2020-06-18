@@ -29,7 +29,7 @@ Medscan gives people the ability to retrieve crucial information about their med
 <details>
 <summary>See homepage</summary>
 
-<img src="https://user-images.githubusercontent.com/33430653/84889533-4dcd3380-b099-11ea-8554-952c835b9302.gif" alt="home" width="100%"/>
+![home](https://user-images.githubusercontent.com/33430653/84889533-4dcd3380-b099-11ea-8554-952c835b9302.gif)
 </details>
 
 <details>
