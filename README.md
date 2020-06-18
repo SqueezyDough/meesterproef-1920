@@ -37,18 +37,18 @@ Medscan gives people the ability to retrieve crucial information about their med
 	
 Name detection
 
-![name-detection-v2](https://user-images.githubusercontent.com/19706066/85006127-065aac00-b15a-11ea-8ace-3a9f43f46e9b.gif)
+![name-detect](https://user-images.githubusercontent.com/19706066/85021366-09619680-b172-11ea-907a-b9518ad8a5a6.gif)
 
 Code detection
 
-![code-detection-v2](https://user-images.githubusercontent.com/19706066/85006129-078bd900-b15a-11ea-93a8-236441e34d1f.gif)
+![code-detectiongif](https://user-images.githubusercontent.com/19706066/85021349-049ce280-b172-11ea-9e48-d7350969b35b.gif)
 </details>
 
 
 <details>
 <summary>See overviewpage</summary>
 
-![overview-gif](https://user-images.githubusercontent.com/19706066/85006117-02c72500-b15a-11ea-88b4-5c49fa1153e4.gif)
+![overview-gif](https://user-images.githubusercontent.com/19706066/85021374-0c5c8700-b172-11ea-89ce-87822a305428.gif)
 </details>
 
 <details>
