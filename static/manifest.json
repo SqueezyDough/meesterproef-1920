@@ -1,6 +1,6 @@
 {
   "name": "Medscan",
-  "display": "browser",
+  "display": "standalone",
   "Scope": "/",
   "start_url": "/",
   "icons": [
