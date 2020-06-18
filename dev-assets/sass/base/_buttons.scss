@@ -67,14 +67,14 @@
   border-color: var(--primary-color);
 
   span {
-    color: var(--secondary-color);
+    color: var(--primary-color);
   }
 }
 
 .-secondary {
   @extend .btn;
 
-  border-color: var(--grey);
+  border-color: var(--dark-grey);
 
   &::before {
     top: -0.3em;
@@ -91,7 +91,7 @@
   }
 
   span {
-    color: var(--grey);
+    color: var(--dark-grey);
   }
 }
 

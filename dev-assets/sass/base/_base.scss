@@ -1,12 +1,14 @@
 @font-face {
   font-family: AvenirNext;
   src: url('/fonts/AvenirNextLTPro-Regular.otf') format("opentype");
+  font-display: swap;
 }
 
 @font-face {
   font-family: AvenirNextBold;
   font-weight: bold;
   src: url('/fonts/AvenirNextLTPro-Bold.otf') format("opentype");
+  font-display: swap;
 }
 
 * {

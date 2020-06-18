@@ -28,10 +28,8 @@ exports.scannerPost = async (req, res) => {
     const other_choices_output = await other_choices_partial({medicines: other_choices_cards})
     partials.push(other_choices_output)
   } else {
-    console.log(req.body)
     const best_choice_output =  await best_choice_partial({medicine: card_partial(req.body)})
     partials.push(best_choice_output)
-    console.log(partials)
   }
   
   res.send(partials)
