@@ -169,3 +169,7 @@ ul {
     }
   }
 }
+
+.header {
+  @extend .cta;
+}
