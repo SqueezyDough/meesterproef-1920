@@ -1,5 +1,8 @@
 const details_checkboxes = document.querySelectorAll('.card__details-checkbox')
 const get_storage = collection => localStorage.getItem(collection)
+const notification_container = document.getElementById('notification-container')
+const cta_headers = document.querySelectorAll('.cta')
+const cta_bottom_header = document.querySelector('.cta-bottom-header')
 const online = window.navigator.onLine
 
 // template for rendering history component
@@ -56,12 +59,7 @@ const template = `
 {{/History}}
 `
 
-
-if (online) {
-  displayOnlineMode()
-} else {
-  displayOfflineMode()
-}
+checkNetworkStatus()
 
 // fix scroll when modal is open
 details_checkboxes.forEach(chk => {
@@ -118,41 +116,38 @@ function renderHistoryItems(template, data) {
   insertContainer.insertAdjacentHTML('beforeend', output)
 }
 
-
-function displayOnlineMode() {
-  const notification_container = document.getElementById('notification-container')
-  const message_element = notification_container.querySelector('span')
-  const cta_headers = document.querySelectorAll('.cta')
-  const cta_bottom_header = document.querySelector('.cta-bottom-header')
-
-  cta_headers.forEach(header => {
-    header.classList.remove('is-hidden')
-  })
-
-  message_element.textContent = 'U bent offline'
-  notification_container.classList.add('is-hidden')
-  cta_bottom_header.classList.remove('is-hidden')
+// check network an display notification when offline
+function checkNetworkStatus() { 
+  if (online) {
+    displayOnline()
+  } else {
+    displayOffline()
+  }
 }
 
-function displayOfflineMode() {
-  const notification_container = document.getElementById('notification-container')
-  const message_element = notification_container.querySelector('span')
-  const cta_headers = document.querySelectorAll('.cta')
-  const cta_bottom_header = document.querySelector('.cta-bottom-header')
+function displayOnline() {
+  if (cta_headers) cta_headers.forEach(header => header.classList.remove('is-hidden'))
+  if (cta_bottom_header) cta_bottom_header.classList.remove('is-hidden')
+  if (notification_container) {
+    notification_container.classList.add('is-hidden') 
+  }
+}
 
-  cta_headers.forEach(header => {
-    header.classList.add('is-hidden')
-  })
+function displayOffline() { 
+  if (cta_headers) cta_headers.forEach(header => header.classList.add('is-hidden'))
+  if (cta_bottom_header) cta_bottom_header.classList.add('is-hidden')
+  if (notification_container) {
+    const message_element = notification_container.querySelector('span')
+    if (message_element) message_element.textContent = 'U bent offline, maar wees gerust u kunt nog wel uw zoekgeschienis bekijken.'
 
-  message_element.textContent = 'U bent offline'
-  notification_container.classList.remove('is-hidden')
-  cta_bottom_header.classList.add('is-hidden')
+    notification_container.classList.remove('is-hidden') 
+  }  
 }
 
 window.addEventListener('online', () => {
-  displayOnlineMode()
+  displayOnline()
 })
 
 window.addEventListener('offline', () => {
-  displayOfflineMode()
+  displayOffline()
 })
