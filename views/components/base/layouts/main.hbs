@@ -19,6 +19,12 @@
   <body>
     {{> 'base/_header'}}
 
+    <div id="notification-container" class="notification -offline is-hidden">
+      <div class="page-inner">
+        <span class="notification-container__message"></span>
+      </div>
+    </div>
+
     {{{body}}}
 
     <script>

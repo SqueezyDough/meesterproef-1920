@@ -55,6 +55,38 @@ const template = `
 {{/History}}
 `
 
+window.addEventListener('online', () => {
+  const notification_container = document.getElementById('notification-container')
+  const message_element = notification_container.querySelector('span')
+  const cta_headers = document.querySelectorAll('.cta')
+  const cta_bottom_header = document.querySelector('.cta-bottom-header')
+
+  cta_headers.forEach(header => {
+    header.classList.remove('is-hidden')
+  })
+
+  message_element.textContent = 'U bent offline'
+  notification_container.classList.add('is-hidden')
+  cta_bottom_header.classList.remove('is-hidden')
+})
+
+window.addEventListener('offline', () => {
+  const notification_container = document.getElementById('notification-container')
+  const message_element = notification_container.querySelector('span')
+  const cta_headers = document.querySelectorAll('.cta')
+  const cta_bottom_header = document.querySelector('.cta-bottom-header')
+
+  cta_headers.forEach(header => {
+    header.classList.add('is-hidden')
+  })
+
+  message_element.textContent = 'U bent offline'
+  notification_container.classList.remove('is-hidden')
+  cta_bottom_header.classList.add('is-hidden')
+})
+
+
+
 // fix scroll when modal is open
 details_checkboxes.forEach(chk => {
   chk.addEventListener('click', () => {

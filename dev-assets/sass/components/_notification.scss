@@ -19,6 +19,12 @@
       padding: 2rem 0;
     }
   }
+
+  &.-offline {
+    margin-bottom: 0;
+    background-color: var(--primary-color);
+    color: var(--white);
+  }
 }
 
 .notification__history-container {
