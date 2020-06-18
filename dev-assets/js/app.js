@@ -1,5 +1,6 @@
 const details_checkboxes = document.querySelectorAll('.card__details-checkbox')
 const get_storage = collection => localStorage.getItem(collection)
+const online = window.navigator.onLine
 
 // template for rendering history component
 const template = `
@@ -55,35 +56,12 @@ const template = `
 {{/History}}
 `
 
-window.addEventListener('online', () => {
-  const notification_container = document.getElementById('notification-container')
-  const message_element = notification_container.querySelector('span')
-  const cta_headers = document.querySelectorAll('.cta')
-  const cta_bottom_header = document.querySelector('.cta-bottom-header')
 
-  cta_headers.forEach(header => {
-    header.classList.remove('is-hidden')
-  })
-
-  message_element.textContent = 'U bent offline'
-  notification_container.classList.add('is-hidden')
-  cta_bottom_header.classList.remove('is-hidden')
-})
-
-window.addEventListener('offline', () => {
-  const notification_container = document.getElementById('notification-container')
-  const message_element = notification_container.querySelector('span')
-  const cta_headers = document.querySelectorAll('.cta')
-  const cta_bottom_header = document.querySelector('.cta-bottom-header')
-
-  cta_headers.forEach(header => {
-    header.classList.add('is-hidden')
-  })
-
-  message_element.textContent = 'U bent offline'
-  notification_container.classList.remove('is-hidden')
-  cta_bottom_header.classList.add('is-hidden')
-})
+if (online) {
+  displayOnlineMode()
+} else {
+  displayOfflineMode()
+}
 
 // fix scroll when modal is open
 details_checkboxes.forEach(chk => {
@@ -139,3 +117,42 @@ function renderHistoryItems(template, data) {
   const insertContainer = document.querySelector('.notification__history-container')
   insertContainer.insertAdjacentHTML('beforeend', output)
 }
+
+
+function displayOnlineMode() {
+  const notification_container = document.getElementById('notification-container')
+  const message_element = notification_container.querySelector('span')
+  const cta_headers = document.querySelectorAll('.cta')
+  const cta_bottom_header = document.querySelector('.cta-bottom-header')
+
+  cta_headers.forEach(header => {
+    header.classList.remove('is-hidden')
+  })
+
+  message_element.textContent = 'U bent offline'
+  notification_container.classList.add('is-hidden')
+  cta_bottom_header.classList.remove('is-hidden')
+}
+
+function displayOfflineMode() {
+  const notification_container = document.getElementById('notification-container')
+  const message_element = notification_container.querySelector('span')
+  const cta_headers = document.querySelectorAll('.cta')
+  const cta_bottom_header = document.querySelector('.cta-bottom-header')
+
+  cta_headers.forEach(header => {
+    header.classList.add('is-hidden')
+  })
+
+  message_element.textContent = 'U bent offline'
+  notification_container.classList.remove('is-hidden')
+  cta_bottom_header.classList.add('is-hidden')
+}
+
+window.addEventListener('online', () => {
+  displayOnlineMode()
+})
+
+window.addEventListener('offline', () => {
+  displayOfflineMode()
+})
