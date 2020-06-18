@@ -51,6 +51,12 @@ Code detection
 ![overview-gif](https://user-images.githubusercontent.com/19706066/85006117-02c72500-b15a-11ea-88b4-5c49fa1153e4.gif)
 </details>
 
+<details>
+<summary>See medicine history</summary>
+
+![history](https://user-images.githubusercontent.com/33430653/84892649-3d6b8780-b09e-11ea-90be-f5194403ac5e.gif)
+</details>
+
 ------
 
 <a name="install">
