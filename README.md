@@ -34,6 +34,7 @@ Medscan gives people the ability to retrieve crucial information about their med
 
 <details>
 <summary>See scannerpage</summary>
+	
 Name detection
 ![name-detection-v2](https://user-images.githubusercontent.com/19706066/85006127-065aac00-b15a-11ea-8ace-3a9f43f46e9b.gif)
 
