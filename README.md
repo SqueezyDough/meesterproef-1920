@@ -25,7 +25,7 @@ In this course we will bundle all our newly acquired superpowers to create a web
 ------
 
 ## Design rationale
-See our [design retionale](https://github.com/SqueezyDough/meesterproef-1920/wiki/Design-rationale)
+See our [design rationale](https://github.com/SqueezyDough/meesterproef-1920/wiki/Design-rationale)
 
 ## Concept
 Medscan gives people the ability to retrieve crucial information about their medicine either by scanning the box or by manual searching for the medicine name or registration number. Medscan uses OCR (optical character recognition) in order to read text from an image, we then identify the usable words from the image which we can use to get a matching medicine from our dataset.
